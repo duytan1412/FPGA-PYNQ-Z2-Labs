@@ -20,12 +20,13 @@ A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **
 ### State Diagram (Moore FSM)
 
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph FSM["6-State Moore FSM"]
         direction TB
         START(( )) --> IDLE
         IDLE[IDLE<br/>Wait for coin] -->|coin| ACCUMULATE
         ACCUMULATE[ACCUMULATE<br/>Add to balance] -->|item_sel| SELECT
+        ACCUMULATE -->|more coins| ACCUMULATE
         ACCUMULATE -->|cancel| CHANGE
         SELECT[SELECT<br/>Check price] -->|bal >= price| DISPENSE
         SELECT -->|bal < price| ERROR
@@ -33,8 +34,6 @@ flowchart LR
         ERROR[ERROR<br/>Insufficient] --> CHANGE
         CHANGE[CHANGE<br/>Return coins] --> IDLE
     end
-    
-    ACCUMULATE -.->|more coins| ACCUMULATE
 
     style IDLE fill:#90EE90
     style ACCUMULATE fill:#87CEEB
