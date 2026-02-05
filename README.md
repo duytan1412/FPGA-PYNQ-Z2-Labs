@@ -6,15 +6,14 @@ A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **
 
 ## 🎯 Highlight Project: Smart Vending Machine FSM
 
-![Vending Machine FSM](./04_Vending_Machine/docs/waveform_fsm.png)
-*Waveform showing FSM state transitions: IDLE → ACCUMULATE → DISPENSE → CHANGE*
+> **6-state Moore FSM Controller** with Self-Checking Testbench
 
 **Key Features:**
-- 6-state Moore FSM (IDLE, ACCUMULATE, SELECT, DISPENSE, CHANGE, ERROR)
+- 6-state Moore FSM: `IDLE → ACCUMULATE → SELECT → DISPENSE → CHANGE → ERROR`
 - Self-Checking Testbench with 8 corner case scenarios
 - 100% logic verification via automated PASS/FAIL output
 
-📂 [View Vending Machine Code](./04_Vending_Machine)
+📂 [**View Vending Machine Code →**](./04_Vending_Machine)
 
 ---
 
@@ -29,19 +28,26 @@ A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **
 
 ---
 
-## 📊 Simulation Waveforms
+## 📊 Testbench Results (Self-Checking)
 
-### Vending Machine - Complete Transaction
-![Complete Transaction](./04_Vending_Machine/docs/waveform_complete.png)
-*Insert 20 → Select Item A (15) → Dispense → Change 5*
+```
+========== VENDING MACHINE TESTBENCH ==========
 
-### Vending Machine - Corner Cases
-![Corner Cases](./04_Vending_Machine/docs/waveform_corner.png)
-*Testing: Overflow protection, Reset mid-transaction, Invalid inputs*
+[PASS] Test 1: Insufficient funds for Item A
+[PASS] Test 2: Buy Item A with change
+[PASS] Test 3: Buy Item C exact change
+[PASS] Test 4: Cancel with zero balance
+[PASS] Test 5: Cancel and get refund
+[PASS] Test 6: Overflow protection (bal<=99)
+[PASS] Test 7: No coin, select item -> error
+[PASS] Test 8: Reset clears balance
 
-### 7-Segment Counter
-![7-Segment Waveform](./02_7Segment_Counter/docs/waveform_counter.png)
-*Counter incrementing 0000 → 0001 → 0002 with segment multiplexing*
+========== TEST SUMMARY ==========
+Total Tests: 8
+Passed: 8
+Failed: 0
+*** ALL TESTS PASSED! ***
+```
 
 ---
 
@@ -67,21 +73,18 @@ FPGA-PYNQ-Z2-Labs/
 │   ├── top.v              # Top module
 │   ├── digits.v           # BCD counter (0-9999)
 │   ├── seg7_control.v     # 4-digit multiplexer FSM
-│   ├── tenHz_gen.v        # Clock generator
-│   └── constraints.xdc    # Pin constraints
+│   └── tenHz_gen.v        # Clock generator
 │
 ├── 03_Button_UpDown_Counter/
 │   ├── top.v              # Top module
 │   ├── btn_debounce.v     # Button debounce logic
 │   ├── counter_4bit.v     # 4-bit up/down counter
-│   ├── seg7_led.v         # Hex to 7-segment decoder
-│   └── tb_*.v             # Testbenches
+│   └── seg7_led.v         # Hex to 7-segment decoder
 │
-├── 04_Vending_Machine/     ★ HIGHLIGHT PROJECT
+├── 04_Vending_Machine/     ★ HIGHLIGHT
 │   ├── vending_machine.v  # 6-state Moore FSM
 │   ├── tb_vending_machine.v # Self-checking testbench
-│   ├── README.md          # State diagram & test scenarios
-│   └── docs/              # Waveform screenshots
+│   └── README.md          # State diagram & test scenarios
 │
 └── docs/
     └── interview_prep.md  # Interview Q&A (Vietnamese)
@@ -91,31 +94,21 @@ FPGA-PYNQ-Z2-Labs/
 
 ## 🚀 How to Use
 
-### 1. Simulation Only (No Hardware)
-```bash
-# Open Vivado
-# Create Project → RTL Project → Skip Add Sources
-# Add Sources → Add vending_machine.v + tb_vending_machine.v
-# Run Simulation → Behavioral Simulation
-# View Console for PASS/FAIL results
+### Simulation (Vivado)
+```
+1. Create RTL Project in Vivado
+2. Add vending_machine.v + tb_vending_machine.v
+3. Run Behavioral Simulation
+4. Check Console for PASS/FAIL results
 ```
 
-### 2. Hardware Implementation (PYNQ-Z2)
-```bash
-# Add all .v files from a project
-# Add .xdc constraints file
-# Run Synthesis → Implementation → Generate Bitstream
-# Open Hardware Manager → Program Device
+### Hardware (PYNQ-Z2)
 ```
-
----
-
-## 📸 How to Capture Waveform Screenshots
-
-1. Run simulation in Vivado
-2. In Waveform window, zoom to interesting area
-3. `File → Export → Export to PNG`
-4. Save to `docs/` folder in project directory
+1. Add all .v files from project folder
+2. Add .xdc constraints
+3. Synthesis → Implementation → Generate Bitstream
+4. Program Device
+```
 
 ---
 
