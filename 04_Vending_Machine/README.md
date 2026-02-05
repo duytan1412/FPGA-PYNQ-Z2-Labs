@@ -66,22 +66,30 @@ Passed: 8 | Failed: 0
 ## 📐 State Diagram
 
 ```mermaid
-stateDiagram-v2
-    [*] --> IDLE
+flowchart LR
+    subgraph FSM["6-State Moore FSM"]
+        direction TB
+        START(( )) --> IDLE
+        IDLE[IDLE<br/>Wait for coin] -->|coin| ACCUMULATE
+        ACCUMULATE[ACCUMULATE<br/>Add to balance] -->|item_sel| SELECT
+        ACCUMULATE -->|cancel| CHANGE
+        SELECT[SELECT<br/>Check price] -->|bal >= price| DISPENSE
+        SELECT -->|bal < price| ERROR
+        DISPENSE[DISPENSE<br/>Output item] --> CHANGE
+        ERROR[ERROR<br/>Insufficient] --> CHANGE
+        CHANGE[CHANGE<br/>Return coins] --> IDLE
+    end
     
-    IDLE --> ACCUMULATE : coin != 0
-    ACCUMULATE --> ACCUMULATE : more coins
-    ACCUMULATE --> SELECT : item_sel != 0
-    ACCUMULATE --> CHANGE : cancel
-    
-    SELECT --> DISPENSE : balance >= price
-    SELECT --> ERROR : balance < price
-    
-    DISPENSE --> CHANGE : done
-    ERROR --> CHANGE : refund
-    
-    CHANGE --> IDLE : complete
+    ACCUMULATE -.->|more coins| ACCUMULATE
+
+    style IDLE fill:#90EE90
+    style ACCUMULATE fill:#87CEEB
+    style SELECT fill:#FFD700
+    style DISPENSE fill:#98FB98
+    style CHANGE fill:#FFA500
+    style ERROR fill:#FF6B6B
 ```
+
 
 **State Encoding:**
 | State | Binary | Description |
