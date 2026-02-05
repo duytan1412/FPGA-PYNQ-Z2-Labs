@@ -81,11 +81,6 @@ stateDiagram-v2
     ERROR --> CHANGE : refund
     
     CHANGE --> IDLE : complete
-
-    note right of IDLE : Output: 0
-    note right of DISPENSE : Output: item_code
-    note right of CHANGE : Output: change_amount
-    note right of ERROR : Output: error_flag
 ```
 
 **State Encoding:**

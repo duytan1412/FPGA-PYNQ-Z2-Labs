@@ -35,11 +35,6 @@ stateDiagram-v2
     ERROR --> CHANGE : return balance
     
     CHANGE --> IDLE : change returned
-
-    note right of IDLE : Outputs: 0\nWait for coin
-    note right of DISPENSE : Outputs: item_code\nActivate motor
-    note right of CHANGE : Outputs: change_amount\nReturn coins
-    note right of ERROR : Outputs: error_flag\nInsufficient funds
 ```
 
 **State Descriptions:**
