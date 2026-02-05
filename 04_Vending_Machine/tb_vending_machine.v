@@ -1,7 +1,17 @@
 `timescale 1ns / 1ps
 
+//=============================================================================
+// Testbench: tb_vending_machine
+// Description: Self-Checking Testbench for Vending Machine Controller
+// Author: Bi Duy Tan - FPT Jetking Academy
+// Test Scenarios: 8 corner cases covering all FSM transitions
+//=============================================================================
+
 module tb_vending_machine;
 
+    //=========================================================================
+    // Testbench Signals
+    //=========================================================================
     reg        clk;
     reg        reset;
     reg  [1:0] coin;
@@ -13,10 +23,16 @@ module tb_vending_machine;
     wire       error;
     wire [2:0] state_out;
 
+    //=========================================================================
+    // Test Counters
+    //=========================================================================
     integer pass_count;
     integer fail_count;
     integer test_num;
 
+    //=========================================================================
+    // Device Under Test (DUT)
+    //=========================================================================
     vending_machine uut (
         .clk(clk),
         .reset(reset),
@@ -30,11 +46,17 @@ module tb_vending_machine;
         .state_out(state_out)
     );
 
+    //=========================================================================
+    // Clock Generation (100MHz = 10ns period)
+    //=========================================================================
     initial begin
         clk = 0;
         forever #5 clk = ~clk;
     end
 
+    //=========================================================================
+    // Self-Checking Task
+    //=========================================================================
     task check_result;
         input [7:0] exp_balance;
         input [1:0] exp_dispense;
@@ -59,11 +81,16 @@ module tb_vending_machine;
         end
     endtask
 
+    //=========================================================================
+    // Test Scenarios
+    //=========================================================================
     initial begin
+        // Initialize counters
         pass_count = 0;
         fail_count = 0;
         test_num = 1;
         
+        // Initialize inputs
         reset = 1;
         coin = 2'b00;
         item_sel = 2'b00;
@@ -74,32 +101,48 @@ module tb_vending_machine;
         
         $display("\n========== VENDING MACHINE TESTBENCH ==========\n");
 
+        //---------------------------------------------------------------------
+        // Test 1: Insufficient Funds
+        // Insert 10, try to buy Item A (costs 15) -> Should error
+        //---------------------------------------------------------------------
         $display("--- Test 1: Insert Coin 10, Buy Item A (15), Insufficient ---");
-        coin = 2'b10; #10; coin = 2'b00; #10;
-        item_sel = 2'b01; #10; item_sel = 2'b00; #20;
+        coin = 2'b10; #10; coin = 2'b00; #10;  // Insert 10
+        item_sel = 2'b01; #10; item_sel = 2'b00; #20;  // Select Item A
         check_result(0, 0, 0, 1, "Insufficient funds for Item A");
         #20;
 
-        reset = 1; #10; reset = 0; #10;
+        reset = 1; #10; reset = 0; #10;  // Reset for next test
 
+        //---------------------------------------------------------------------
+        // Test 2: Successful Purchase with Change
+        // Insert 20, buy Item A (15) -> Dispense A, Change 5
+        //---------------------------------------------------------------------
         $display("--- Test 2: Insert 20, Buy Item A (15), Get Change 5 ---");
-        coin = 2'b11; #10; coin = 2'b00; #10;
-        item_sel = 2'b01; #10; item_sel = 2'b00; #30;
+        coin = 2'b11; #10; coin = 2'b00; #10;  // Insert 20
+        item_sel = 2'b01; #10; item_sel = 2'b00; #30;  // Select Item A
         check_result(0, 0, 5, 0, "Buy Item A with change");
         #20;
 
         reset = 1; #10; reset = 0; #10;
 
+        //---------------------------------------------------------------------
+        // Test 3: Exact Change Purchase
+        // Insert 30 (10+10+10), buy Item C (30) -> Dispense C, Change 0
+        //---------------------------------------------------------------------
         $display("--- Test 3: Insert 10+10+10=30, Buy Item C (30), Exact ---");
-        coin = 2'b10; #10; coin = 2'b00; #10;
-        coin = 2'b10; #10; coin = 2'b00; #10;
-        coin = 2'b10; #10; coin = 2'b00; #10;
-        item_sel = 2'b11; #10; item_sel = 2'b00; #30;
+        coin = 2'b10; #10; coin = 2'b00; #10;  // Insert 10
+        coin = 2'b10; #10; coin = 2'b00; #10;  // Insert 10
+        coin = 2'b10; #10; coin = 2'b00; #10;  // Insert 10
+        item_sel = 2'b11; #10; item_sel = 2'b00; #30;  // Select Item C
         check_result(0, 0, 0, 0, "Buy Item C exact change");
         #20;
 
         reset = 1; #10; reset = 0; #10;
 
+        //---------------------------------------------------------------------
+        // Test 4: Cancel with Zero Balance
+        // Cancel without inserting any coin -> No change
+        //---------------------------------------------------------------------
         $display("--- Test 4: Cancel with Zero Balance ---");
         cancel = 1; #10; cancel = 0; #20;
         check_result(0, 0, 0, 0, "Cancel with zero balance");
@@ -107,21 +150,29 @@ module tb_vending_machine;
 
         reset = 1; #10; reset = 0; #10;
 
+        //---------------------------------------------------------------------
+        // Test 5: Cancel with Balance (Refund)
+        // Insert 5+10=15, Cancel -> Refund 15
+        //---------------------------------------------------------------------
         $display("--- Test 5: Insert 5+10=15, Cancel, Get Refund ---");
-        coin = 2'b01; #10; coin = 2'b00; #10;
-        coin = 2'b10; #10; coin = 2'b00; #10;
+        coin = 2'b01; #10; coin = 2'b00; #10;  // Insert 5
+        coin = 2'b10; #10; coin = 2'b00; #10;  // Insert 10
         cancel = 1; #10; cancel = 0; #30;
         check_result(0, 0, 15, 0, "Cancel and get refund");
         #20;
 
         reset = 1; #10; reset = 0; #10;
 
+        //---------------------------------------------------------------------
+        // Test 6: Overflow Protection
+        // Rapid coin insertion -> Balance should not exceed 99
+        //---------------------------------------------------------------------
         $display("--- Test 6: Rapid Coin Insertion (Overflow Protection) ---");
-        coin = 2'b11; #10;
-        coin = 2'b11; #10;
-        coin = 2'b11; #10;
-        coin = 2'b11; #10;
-        coin = 2'b11; #10;
+        coin = 2'b11; #10;  // 20
+        coin = 2'b11; #10;  // 40
+        coin = 2'b11; #10;  // 60
+        coin = 2'b11; #10;  // 80
+        coin = 2'b11; #10;  // Would be 100, but capped at 99
         coin = 2'b00; #10;
         if (balance <= 99)
             $display("[PASS] Test %0d: Overflow protection (bal=%0d <= 99)", test_num, balance);
@@ -132,6 +183,10 @@ module tb_vending_machine;
 
         reset = 1; #10; reset = 0; #10;
 
+        //---------------------------------------------------------------------
+        // Test 7: Select Item Without Coin (Invalid Input)
+        // No coin inserted, try to select Item B -> Error
+        //---------------------------------------------------------------------
         $display("--- Test 7: Select Item Without Inserting Coin ---");
         item_sel = 2'b10; #10; item_sel = 2'b00; #30;
         check_result(0, 0, 0, 1, "No coin, select item B -> error");
@@ -139,12 +194,19 @@ module tb_vending_machine;
 
         reset = 1; #10; reset = 0; #10;
 
+        //---------------------------------------------------------------------
+        // Test 8: Reset Mid-Transaction (Async Reset)
+        // Insert coin, then reset -> Balance cleared
+        //---------------------------------------------------------------------
         $display("--- Test 8: Reset Mid-Transaction ---");
-        coin = 2'b11; #10; coin = 2'b00; #10;
-        reset = 1; #10; reset = 0; #10;
+        coin = 2'b11; #10; coin = 2'b00; #10;  // Insert 20
+        reset = 1; #10; reset = 0; #10;         // Async reset
         check_result(0, 0, 0, 0, "Reset clears balance");
         #20;
 
+        //=====================================================================
+        // Test Summary
+        //=====================================================================
         $display("\n========== TEST SUMMARY ==========");
         $display("Total Tests: %0d", pass_count + fail_count);
         $display("Passed: %0d", pass_count);

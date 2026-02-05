@@ -1,42 +1,66 @@
 `timescale 1ns / 1ps
 
+//=============================================================================
+// Module: vending_machine
+// Description: Smart Vending Machine Controller using Moore FSM
+// Author: Bi Duy Tan - FPT Jetking Academy
+//=============================================================================
+
 module vending_machine(
-    input        clk,
-    input        reset,
-    input  [1:0] coin,
-    input  [1:0] item_sel,
-    input        cancel,
-    output reg [7:0] balance,
-    output reg [1:0] dispense,
-    output reg [7:0] change,
-    output reg       error,
-    output reg [2:0] state_out
+    input        clk,           // System clock
+    input        reset,         // Async reset (active high)
+    input  [1:0] coin,          // Coin input: 01=5, 10=10, 11=20
+    input  [1:0] item_sel,      // Item select: 01=A, 10=B, 11=C
+    input        cancel,        // Cancel transaction
+    output reg [7:0] balance,   // Current balance
+    output reg [1:0] dispense,  // Item being dispensed
+    output reg [7:0] change,    // Change to return
+    output reg       error,     // Error flag (insufficient funds)
+    output reg [2:0] state_out  // Current state (for debug)
 );
 
-    localparam IDLE      = 3'b000;
-    localparam ACCUMULATE = 3'b001;
-    localparam SELECT    = 3'b010;
-    localparam DISPENSE  = 3'b011;
-    localparam CHANGE    = 3'b100;
-    localparam ERROR_ST  = 3'b101;
+    //=========================================================================
+    // State Definition (Moore Machine - 6 states)
+    //=========================================================================
+    localparam IDLE      = 3'b000;  // Waiting for coin
+    localparam ACCUMULATE = 3'b001; // Accumulating coins
+    localparam SELECT    = 3'b010;  // Processing item selection
+    localparam DISPENSE  = 3'b011;  // Dispensing item
+    localparam CHANGE    = 3'b100;  // Returning change
+    localparam ERROR_ST  = 3'b101;  // Error state (insufficient funds)
 
-    localparam COIN_5    = 2'b01;
-    localparam COIN_10   = 2'b10;
-    localparam COIN_20   = 2'b11;
+    //=========================================================================
+    // Coin Value Definition
+    //=========================================================================
+    localparam COIN_5    = 2'b01;   // 5 units
+    localparam COIN_10   = 2'b10;   // 10 units
+    localparam COIN_20   = 2'b11;   // 20 units
 
-    localparam ITEM_A    = 2'b01;
-    localparam ITEM_B    = 2'b10;
-    localparam ITEM_C    = 2'b11;
+    //=========================================================================
+    // Item Definition
+    //=========================================================================
+    localparam ITEM_A    = 2'b01;   // Item A
+    localparam ITEM_B    = 2'b10;   // Item B
+    localparam ITEM_C    = 2'b11;   // Item C
 
-    localparam PRICE_A   = 8'd15;
-    localparam PRICE_B   = 8'd25;
-    localparam PRICE_C   = 8'd30;
-    localparam MAX_BALANCE = 8'd99;
+    //=========================================================================
+    // Price Definition
+    //=========================================================================
+    localparam PRICE_A   = 8'd15;   // Item A costs 15
+    localparam PRICE_B   = 8'd25;   // Item B costs 25
+    localparam PRICE_C   = 8'd30;   // Item C costs 30
+    localparam MAX_BALANCE = 8'd99; // Overflow protection
 
-    reg [2:0] state, next_state;
-    reg [7:0] item_price;
-    reg [1:0] selected_item;
+    //=========================================================================
+    // Internal Registers
+    //=========================================================================
+    reg [2:0] state, next_state;    // Current and next state
+    reg [7:0] item_price;           // Selected item price
+    reg [1:0] selected_item;        // Selected item ID
 
+    //=========================================================================
+    // State Register (Sequential Logic)
+    //=========================================================================
     always @(posedge clk or posedge reset) begin
         if (reset)
             state <= IDLE;
@@ -44,8 +68,12 @@ module vending_machine(
             state <= next_state;
     end
 
+    //=========================================================================
+    // Next State Logic (Combinational Logic)
+    //=========================================================================
     always @(*) begin
-        next_state = state;
+        next_state = state;  // Default: stay in current state
+        
         case (state)
             IDLE: begin
                 if (coin != 2'b00)
@@ -53,6 +81,7 @@ module vending_machine(
                 else if (cancel)
                     next_state = CHANGE;
             end
+            
             ACCUMULATE: begin
                 if (item_sel != 2'b00)
                     next_state = SELECT;
@@ -61,27 +90,36 @@ module vending_machine(
                 else if (coin == 2'b00)
                     next_state = IDLE;
             end
+            
             SELECT: begin
                 if (balance >= item_price)
                     next_state = DISPENSE;
                 else
                     next_state = ERROR_ST;
             end
+            
             DISPENSE: begin
                 next_state = CHANGE;
             end
+            
             CHANGE: begin
                 next_state = IDLE;
             end
+            
             ERROR_ST: begin
                 next_state = IDLE;
             end
+            
             default: next_state = IDLE;
         endcase
     end
 
+    //=========================================================================
+    // Output Logic (Sequential - Moore Machine)
+    //=========================================================================
     always @(posedge clk or posedge reset) begin
         if (reset) begin
+            // Reset all outputs
             balance <= 8'd0;
             dispense <= 2'b00;
             change <= 8'd0;
@@ -90,12 +128,18 @@ module vending_machine(
             selected_item <= 2'b00;
             state_out <= IDLE;
         end else begin
-            state_out <= state;
+            state_out <= state;  // Debug output
+            
             case (state)
+                //-------------------------------------------------------------
+                // IDLE State: Wait for coin insertion
+                //-------------------------------------------------------------
                 IDLE: begin
                     dispense <= 2'b00;
                     change <= 8'd0;
                     error <= 1'b0;
+                    
+                    // Add coin to balance
                     if (coin != 2'b00) begin
                         case (coin)
                             COIN_5:  if (balance + 8'd5 <= MAX_BALANCE) balance <= balance + 8'd5;
@@ -104,7 +148,12 @@ module vending_machine(
                         endcase
                     end
                 end
+                
+                //-------------------------------------------------------------
+                // ACCUMULATE State: Continue adding coins
+                //-------------------------------------------------------------
                 ACCUMULATE: begin
+                    // Add more coins
                     if (coin != 2'b00) begin
                         case (coin)
                             COIN_5:  if (balance + 8'd5 <= MAX_BALANCE) balance <= balance + 8'd5;
@@ -112,6 +161,8 @@ module vending_machine(
                             COIN_20: if (balance + 8'd20 <= MAX_BALANCE) balance <= balance + 8'd20;
                         endcase
                     end
+                    
+                    // Store selected item and price
                     if (item_sel != 2'b00) begin
                         selected_item <= item_sel;
                         case (item_sel)
@@ -122,20 +173,37 @@ module vending_machine(
                         endcase
                     end
                 end
+                
+                //-------------------------------------------------------------
+                // SELECT State: Check if enough balance
+                //-------------------------------------------------------------
                 SELECT: begin
+                    // Decision made in next_state logic
                 end
+                
+                //-------------------------------------------------------------
+                // DISPENSE State: Output the item
+                //-------------------------------------------------------------
                 DISPENSE: begin
                     dispense <= selected_item;
-                    balance <= balance - item_price;
+                    balance <= balance - item_price;  // Subtract price (ALU)
                 end
+                
+                //-------------------------------------------------------------
+                // CHANGE State: Return remaining balance
+                //-------------------------------------------------------------
                 CHANGE: begin
-                    change <= balance;
-                    balance <= 8'd0;
-                    dispense <= 2'b00;
+                    change <= balance;    // Return all balance as change
+                    balance <= 8'd0;      // Clear balance
+                    dispense <= 2'b00;    // Clear dispense
                 end
+                
+                //-------------------------------------------------------------
+                // ERROR State: Insufficient funds
+                //-------------------------------------------------------------
                 ERROR_ST: begin
-                    error <= 1'b1;
-                    dispense <= 2'b00;
+                    error <= 1'b1;        // Set error flag
+                    dispense <= 2'b00;    // No dispense
                 end
             endcase
         end
