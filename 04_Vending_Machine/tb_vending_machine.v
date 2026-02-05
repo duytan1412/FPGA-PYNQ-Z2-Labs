@@ -188,7 +188,7 @@ module tb_vending_machine;
         //---------------------------------------------------------------------
         $display("--- Test 7: Select Item Without Inserting Coin ---");
         item_sel = 2'b10; #10; item_sel = 2'b00; #30;
-        check_result(0, 0, 0, 1, "No coin, select item B -> error");
+        check_result(0, 0, 0, 0, "No coin, select item B -> Ignore (remain IDLE)");
         #20;
 
         reset = 1; #10; reset = 0; #10;

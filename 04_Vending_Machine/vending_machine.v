@@ -86,8 +86,7 @@ module vending_machine(
                     next_state = SELECT;
                 else if (cancel)
                     next_state = CHANGE;
-                else if (coin == 2'b00)
-                    next_state = IDLE;
+                // Stay in ACCUMULATE until action or cancel
             end
             
             SELECT: begin
