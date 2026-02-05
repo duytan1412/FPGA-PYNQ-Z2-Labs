@@ -13,6 +13,10 @@ A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **
 - Self-Checking Testbench with 8 corner case scenarios
 - 100% logic verification via automated PASS/FAIL output
 
+### Simulation Waveform (Vivado)
+![Vending Machine Waveform](./04_Vending_Machine/docs/waveform_simulation.png)
+*Testbench running all 8 scenarios: coin insertion, item selection, balance tracking, dispense, and change calculation*
+
 📂 [**View Vending Machine Code →**](./04_Vending_Machine)
 
 ---
