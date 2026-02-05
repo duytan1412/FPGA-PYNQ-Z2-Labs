@@ -17,6 +17,37 @@ A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **
 ![Vending Machine Waveform](./04_Vending_Machine/docs/waveform_simulation.png)
 *Testbench running all 8 scenarios: coin insertion, item selection, balance tracking, dispense, and change calculation*
 
+### State Diagram (Moore FSM)
+```
+         +-------------------------------------+
+         |                                     |
+         v                                     |
+    +---------+     coin     +------------+    |
+    |  IDLE   |------------->| ACCUMULATE |    |
+    +----+----+              +-----+------+    |
+         |                         |           |
+         | cancel                  | item_sel  |
+         |                         v           |
+         |                   +----------+      |
+         |                   |  SELECT  |      |
+         |                   +----+-----+      |
+         |              +---------+---------+  |
+         |              |                   |  |
+         |     bal >= price        bal < price |
+         |              |                   |  |
+         |              v                   v  |
+         |        +----------+       +---------+
+         |        | DISPENSE |       |  ERROR  |
+         |        +----+-----+       +----+----+
+         |             |                  |    |
+         |             v                  |    |
+         |        +----------+            |    |
+         +------->|  CHANGE  |<-----------+    |
+                  +----+-----+                 |
+                       |                       |
+                       +-----------------------+
+```
+
 📂 [**View Vending Machine Code →**](./04_Vending_Machine)
 
 ---
