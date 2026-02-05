@@ -18,35 +18,39 @@ A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **
 *Testbench running all 8 scenarios: coin insertion, item selection, balance tracking, dispense, and change calculation*
 
 ### State Diagram (Moore FSM)
+
+```mermaid
+stateDiagram-v2
+    [*] --> IDLE
+    
+    IDLE --> ACCUMULATE : coin inserted
+    ACCUMULATE --> ACCUMULATE : more coins
+    ACCUMULATE --> SELECT : item selected
+    ACCUMULATE --> CHANGE : cancel pressed
+    
+    SELECT --> DISPENSE : balance >= price
+    SELECT --> ERROR : balance < price
+    
+    DISPENSE --> CHANGE : dispense done
+    ERROR --> CHANGE : return balance
+    
+    CHANGE --> IDLE : change returned
+
+    note right of IDLE : Outputs: 0\nWait for coin
+    note right of DISPENSE : Outputs: item_code\nActivate motor
+    note right of CHANGE : Outputs: change_amount\nReturn coins
+    note right of ERROR : Outputs: error_flag\nInsufficient funds
 ```
-         +-------------------------------------+
-         |                                     |
-         v                                     |
-    +---------+     coin     +------------+    |
-    |  IDLE   |------------->| ACCUMULATE |    |
-    +----+----+              +-----+------+    |
-         |                         |           |
-         | cancel                  | item_sel  |
-         |                         v           |
-         |                   +----------+      |
-         |                   |  SELECT  |      |
-         |                   +----+-----+      |
-         |              +---------+---------+  |
-         |              |                   |  |
-         |     bal >= price        bal < price |
-         |              |                   |  |
-         |              v                   v  |
-         |        +----------+       +---------+
-         |        | DISPENSE |       |  ERROR  |
-         |        +----+-----+       +----+----+
-         |             |                  |    |
-         |             v                  |    |
-         |        +----------+            |    |
-         +------->|  CHANGE  |<-----------+    |
-                  +----+-----+                 |
-                       |                       |
-                       +-----------------------+
-```
+
+**State Descriptions:**
+| State | Function | Output |
+|-------|----------|--------|
+| `IDLE` | Wait for coin insertion | All outputs = 0 |
+| `ACCUMULATE` | Add coins to balance | Update balance |
+| `SELECT` | Check if balance >= price | - |
+| `DISPENSE` | Activate motor, subtract price | dispense = item_code |
+| `CHANGE` | Return remaining balance | change = balance |
+| `ERROR` | Signal insufficient funds | error = 1 |
 
 📂 [**View Vending Machine Code →**](./04_Vending_Machine)
 

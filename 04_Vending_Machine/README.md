@@ -65,35 +65,38 @@ Passed: 8 | Failed: 0
 
 ## 📐 State Diagram
 
+```mermaid
+stateDiagram-v2
+    [*] --> IDLE
+    
+    IDLE --> ACCUMULATE : coin != 0
+    ACCUMULATE --> ACCUMULATE : more coins
+    ACCUMULATE --> SELECT : item_sel != 0
+    ACCUMULATE --> CHANGE : cancel
+    
+    SELECT --> DISPENSE : balance >= price
+    SELECT --> ERROR : balance < price
+    
+    DISPENSE --> CHANGE : done
+    ERROR --> CHANGE : refund
+    
+    CHANGE --> IDLE : complete
+
+    note right of IDLE : Output: 0
+    note right of DISPENSE : Output: item_code
+    note right of CHANGE : Output: change_amount
+    note right of ERROR : Output: error_flag
 ```
-         ┌─────────────────────────────────────┐
-         │                                     │
-         ▼                                     │
-    ┌─────────┐     coin     ┌────────────┐    │
-    │  IDLE   │─────────────▶│ ACCUMULATE │    │
-    └────┬────┘              └─────┬──────┘    │
-         │                         │           │
-         │ cancel                  │ item_sel  │
-         │                         ▼           │
-         │                   ┌──────────┐      │
-         │                   │  SELECT  │      │
-         │                   └────┬─────┘      │
-         │              ┌─────────┴─────────┐  │
-         │              │                   │  │
-         │     balance >= price     balance < price
-         │              │                   │  │
-         │              ▼                   ▼  │
-         │        ┌──────────┐       ┌─────────┐
-         │        │ DISPENSE │       │  ERROR  │
-         │        └────┬─────┘       └────┬────┘
-         │             │                  │    │
-         │             ▼                  │    │
-         │        ┌──────────┐            │    │
-         └───────▶│  CHANGE  │◀───────────┘    │
-                  └────┬─────┘                 │
-                       │                       │
-                       └───────────────────────┘
-```
+
+**State Encoding:**
+| State | Binary | Description |
+|-------|--------|-------------|
+| IDLE | `3'b000` | Waiting for coin |
+| ACCUMULATE | `3'b001` | Accumulating balance |
+| SELECT | `3'b010` | Checking price |
+| DISPENSE | `3'b011` | Dispensing item |
+| CHANGE | `3'b100` | Returning change |
+| ERROR | `3'b101` | Insufficient funds |
 
 ---
 
