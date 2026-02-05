@@ -32,7 +32,42 @@ PYNQ-Z2 dùng Common Cathode.
 
 ---
 
-## 3. Button Up/Down Counter Project
+## 3. Smart Vending Machine Project (★ Quan trọng nhất)
+
+### Q: Giải thích FSM của Vending Machine?
+**A:** FSM có 6 states: IDLE (chờ), ACCUMULATE (tích tiền), SELECT (chọn món), DISPENSE (xuất hàng), CHANGE (trả tiền thừa), ERROR (lỗi). Đây là Moore Machine vì output chỉ phụ thuộc state hiện tại, không phụ thuộc input.
+
+### Q: Moore Machine vs Mealy Machine?
+**A:**
+- **Moore**: Output = f(state). Ổn định hơn, ít glitch, nhưng có thể cần nhiều state hơn.
+- **Mealy**: Output = f(state, input). Phản hồi nhanh hơn, ít state hơn, nhưng có thể bị glitch.
+Vending Machine dùng Moore để output ổn định khi dispense.
+
+### Q: Self-Checking Testbench là gì?
+**A:** Testbench tự động so sánh output thực tế với expected value. Nếu khác → in FAIL. Nếu giống → in PASS. Không cần nhìn waveform thủ công.
+```verilog
+if (balance != expected_balance)
+    $display("[FAIL] Test %0d", test_num);
+else
+    $display("[PASS] Test %0d", test_num);
+```
+
+### Q: Tại sao cần test Corner Cases?
+**A:** Corner cases là trường hợp biên, dễ gây bug:
+- **Overflow protection**: Bỏ tiền liên tục vượt 99
+- **Zero-balance cancel**: Hủy khi balance = 0
+- **Reset mid-transaction**: Reset giữa chừng giao dịch
+- **Invalid input**: Chọn món khi chưa bỏ tiền
+
+### Q: ALU trong project này là gì?
+**A:** ALU (Arithmetic Logic Unit) thực hiện phép tính cộng/trừ tiền:
+- Cộng: `balance <= balance + coin_value` (khi bỏ tiền)
+- Trừ: `balance <= balance - item_price` (khi xuất hàng)
+- Trả: `change <= balance` (khi hoàn tiền)
+
+---
+
+## 4. Button Up/Down Counter Project
 
 ### Q: Tại sao cần debounce?
 **A:** Khi nhấn nút vật lý, tiếp điểm dao động tạo nhiều xung nhiễu (bouncing). Debounce lọc nhiễu này, chỉ nhận 1 xung duy nhất cho mỗi lần nhấn.
@@ -47,7 +82,7 @@ posedge = current & ~previous;  // Cạnh lên
 negedge = ~current & previous;  // Cạnh xuống
 ```
 
----
+
 
 ## 4. Câu hỏi chung về FPGA
 
