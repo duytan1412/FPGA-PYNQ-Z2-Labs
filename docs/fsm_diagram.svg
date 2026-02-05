@@ -1,72 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" style="max-width: 400px; background: #f8f9fa; border-radius: 8px;">
-    <!-- IDLE -->
-    <rect x="150" y="10" width="100" height="40" rx="8" fill="#90EE90" stroke="#333" stroke-width="2" />
-    <text x="200" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">IDLE</text>
-
-    <!-- Arrow IDLE -> ACCUMULATE -->
-    <line x1="200" y1="50" x2="200" y2="70" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
-    <text x="230" y="65" font-family="Arial, sans-serif" font-size="10" fill="#666">coin</text>
-
-    <!-- ACCUMULATE -->
-    <rect x="140" y="75" width="120" height="40" rx="8" fill="#87CEEB" stroke="#333" stroke-width="2" />
-    <text x="200" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">ACCUMULATE</text>
-
-    <!-- Self loop for more coins -->
-    <path d="M 265 85 C 290 75, 300 105, 265 105" fill="none" stroke="#333" stroke-width="1.5"
-        stroke-dasharray="4" marker-end="url(#arrow)" />
-    <text x="315" y="95" font-family="Arial, sans-serif" font-size="9" fill="#666">more coins</text>
-
-    <!-- Arrow ACCUMULATE -> SELECT -->
-    <line x1="200" y1="115" x2="200" y2="135" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
-    <text x="230" y="128" font-family="Arial, sans-serif" font-size="10" fill="#666">item_sel</text>
-
-    <!-- Cancel arrow -->
-    <path d="M 140 95 L 80 95 L 80 280 L 150 280" fill="none" stroke="#333" stroke-width="1.5"
-        marker-end="url(#arrow)" />
-    <text x="60" y="180" font-family="Arial, sans-serif" font-size="9" fill="#666" transform="rotate(-90 60 180)">cancel</text>
-
-    <!-- SELECT -->
-    <rect x="150" y="140" width="100" height="40" rx="8" fill="#FFD700" stroke="#333"
-        stroke-width="2" />
-    <text x="200" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">SELECT</text>
-
-    <!-- Arrow SELECT -> DISPENSE -->
-    <line x1="170" y1="180" x2="100" y2="210" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
-    <text x="100" y="195" font-family="Arial, sans-serif" font-size="9" fill="#666">bal≥price</text>
-
-    <!-- Arrow SELECT -> ERROR -->
-    <line x1="230" y1="180" x2="300" y2="210" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
-    <text x="275" y="195" font-family="Arial, sans-serif" font-size="9" fill="#666">bal&lt;price</text>
-
-    <!-- DISPENSE -->
-    <rect x="50" y="215" width="100" height="40" rx="8" fill="#98FB98" stroke="#333" stroke-width="2" />
-    <text x="100" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">DISPENSE</text>
-
-    <!-- ERROR -->
-    <rect x="250" y="215" width="100" height="40" rx="8" fill="#FF6B6B" stroke="#333"
-        stroke-width="2" />
-    <text x="300" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">ERROR</text>
-
-    <!-- Arrow DISPENSE -> CHANGE -->
-    <line x1="100" y1="255" x2="170" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
-
-    <!-- Arrow ERROR -> CHANGE -->
-    <line x1="300" y1="255" x2="230" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
-
-    <!-- CHANGE -->
-    <rect x="150" y="275" width="100" height="40" rx="8" fill="#FFA500" stroke="#333"
-        stroke-width="2" />
-    <text x="200" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">CHANGE</text>
-
-    <!-- Arrow CHANGE -> IDLE (loop back) -->
-    <path d="M 250 295 L 350 295 L 350 30 L 250 30" fill="none" stroke="#333" stroke-width="2"
-        marker-end="url(#arrow)" />
-
-    <!-- Arrow marker definition -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 340" style="max-width: 420px; background: #f8f9fa; border-radius: 8px;">
+    <!-- Definitions for markers -->
     <defs>
         <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"
             markerUnits="strokeWidth">
             <path d="M0,0 L0,6 L9,3 z" fill="#333" />
         </marker>
     </defs>
+
+    <!-- IDLE State (Top Center) -->
+    <!-- x range: 160 to 260 -->
+    <rect x="160" y="20" width="100" height="40" rx="8" fill="#90EE90" stroke="#333" stroke-width="2" />
+    <text x="210" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">IDLE</text>
+
+    <!-- Arrow IDLE -> ACCUMULATE (Down) -->
+    <line x1="210" y1="60" x2="210" y2="80" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+    <text x="225" y="75" font-family="Arial, sans-serif" font-size="10" fill="#666">coin</text>
+
+    <!-- ACCUMULATE State (Below IDLE) -->
+    <!-- x range: 150 to 270 -->
+    <rect x="150" y="85" width="120" height="40" rx="8" fill="#87CEEB" stroke="#333" stroke-width="2" />
+    <text x="210" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">ACCUMULATE</text>
+
+    <!-- Self loop 'more coins' (Right Side) -->
+    <!-- Attached to right edge x=270 -->
+    <path d="M 270 95 C 310 80, 310 130, 270 115" fill="none" stroke="#333" stroke-width="1.5"
+        stroke-dasharray="4" marker-end="url(#arrow)" />
+    <text x="325" y="105" font-family="Arial, sans-serif" font-size="9" fill="#666">more coins</text>
+
+    <!-- Arrow ACCUMULATE -> SELECT (Down) -->
+    <line x1="210" y1="125" x2="210" y2="145" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+    <text x="235" y="140" font-family="Arial, sans-serif" font-size="10" fill="#666">item_sel</text>
+
+    <!-- Arrow ACCUMULATE -> CHANGE (Cancel) - LEFT ROUTE -->
+    <!-- Avoids DISPENSE block at [50, 225] -->
+    <!-- Path: Accumulate Left(150,105) -> Left(30) -> Down(305) -> Change Left(160) -->
+    <path d="M 150 105 L 30 105 L 30 305 L 160 305" fill="none" stroke="#333" stroke-width="1.5"
+        marker-end="url(#arrow)" />
+    <text x="40" y="200" font-family="Arial, sans-serif" font-size="11" fill="#666" transform="rotate(-90 40 200)">cancel</text>
+
+    <!-- SELECT State (Below Accumulate) -->
+    <!-- x range: 160 to 260 -->
+    <rect x="160" y="150" width="100" height="40" rx="8" fill="#FFD700" stroke="#333" stroke-width="2" />
+    <text x="210" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">SELECT</text>
+
+    <!-- Arrow SELECT -> DISPENSE (Left Down) -->
+    <line x1="180" y1="190" x2="110" y2="220" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+    <text x="115" y="205" font-family="Arial, sans-serif" font-size="10" fill="#666">bal≥price</text>
+
+    <!-- Arrow SELECT -> ERROR (Right Down) -->
+    <line x1="240" y1="190" x2="310" y2="220" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+    <text x="285" y="205" font-family="Arial, sans-serif" font-size="10" fill="#666">bal&lt;price</text>
+
+    <!-- DISPENSE State (Left Bottom) -->
+    <!-- x range: 50 to 150 -->
+    <rect x="50" y="225" width="100" height="40" rx="8" fill="#98FB98" stroke="#333" stroke-width="2" />
+    <text x="100" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">DISPENSE</text>
+
+    <!-- ERROR State (Right Bottom) -->
+    <!-- x range: 270 to 370. Moved right to avoid connection crowding -->
+    <rect x="270" y="225" width="100" height="40" rx="8" fill="#FF6B6B" stroke="#333" stroke-width="2" />
+    <text x="320" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">ERROR</text>
+
+    <!-- Arrow DISPENSE -> CHANGE (Down Right) -->
+    <line x1="100" y1="265" x2="180" y2="285" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- Arrow ERROR -> CHANGE (Down Left) -->
+    <line x1="320" y1="265" x2="240" y2="285" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- CHANGE State (Bottom Center) -->
+    <!-- x range: 160 to 260 -->
+    <rect x="160" y="285" width="100" height="40" rx="8" fill="#FFA500" stroke="#333" stroke-width="2" />
+    <text x="210" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">CHANGE</text>
+
+    <!-- Arrow CHANGE -> IDLE (Loop Back - Right Side) -->
+    <!-- Route: Change Right(260) -> Right(390) -> Up(40) -> Idle Right(260) -->
+    <!-- Avoids ERROR block at [270, 370] -->
+    <path d="M 260 305 L 390 305 L 390 40 L 260 40" fill="none" stroke="#333" stroke-width="2"
+        marker-end="url(#arrow)" />
+
 </svg>
