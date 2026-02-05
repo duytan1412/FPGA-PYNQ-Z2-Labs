@@ -3,7 +3,6 @@
 //=============================================================================
 // Module: vending_machine
 // Description: Smart Vending Machine Controller using Moore FSM
-// Author: Bi Duy Tan - FPT Jetking Academy
 //=============================================================================
 
 module vending_machine(

@@ -3,7 +3,6 @@
 //=============================================================================
 // Testbench: tb_vending_machine
 // Description: Self-Checking Testbench for Vending Machine Controller
-// Author: Bi Duy Tan - FPT Jetking Academy
 // Test Scenarios: 8 corner cases covering all FSM transitions
 //=============================================================================
 
