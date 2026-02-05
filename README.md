@@ -9,6 +9,8 @@ A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **
 | 01 | [LED Blink](./01_LED_Blink) | Running LED pattern | Clock divider, Shift register |
 | 02 | [7-Segment Counter](./02_7Segment_Counter) | 0000-9999 auto counter | FSM, Multiplexing, BCD to 7-seg |
 | 03 | [Button Up/Down Counter](./03_Button_UpDown_Counter) | Button-controlled hex counter | Debounce, Edge detection |
+| 04 | [**Vending Machine**](./04_Vending_Machine) | **Moore FSM with Self-Check TB** | **Complex FSM, ALU, Verification** |
+
 
 ## Hardware
 
