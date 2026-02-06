@@ -73,8 +73,25 @@ Failed: 0
 ## 🛠 Hardware
 
 - **Board**: PYNQ-Z2 (Xilinx Zynq-7000, xc7z020clg400-1)
-- **Clock**: 100 MHz
+- **Clock**: 125 MHz
 - **Tools**: Vivado 2020.2+
+
+---
+
+## ⏱ Timing Report (Vivado Implementation)
+
+![Timing Report](./docs/timing_report.png)
+
+| Metric | Value | Status |
+|--------|-------|--------|
+| **WNS (Setup)** | +3.889 ns | ✅ PASSED |
+| **WHS (Hold)** | +0.152 ns | ✅ PASSED |
+| **WPWS (Pulse Width)** | +3.500 ns | ✅ PASSED |
+| **Failing Endpoints** | 0 | ✅ PERFECT |
+
+> **"All user specified timing constraints are met."**
+
+📂 [View Constraint File →](./04_Vending_Machine/constraints_vending_machine.xdc)
 
 ---
 
