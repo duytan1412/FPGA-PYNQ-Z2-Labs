@@ -123,7 +123,8 @@ FPGA-PYNQ-Z2-Labs/
 │   └── README.md          # State diagram & test scenarios
 │
 └── docs/
-    └── interview_prep.md  # Interview Q&A (Vietnamese)
+    ├── fsm_diagram.svg     # State diagram for Vending Machine
+    └── timing_report.png   # Vivado timing analysis result
 ```
 
 ---
