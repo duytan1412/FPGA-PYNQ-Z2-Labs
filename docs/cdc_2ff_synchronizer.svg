@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 220" style="max-width: 650px; background: #f8f9fa; border-radius: 8px;">
+    <!-- Title -->
+    <text x="325" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a1a2e">2-Flip-Flop Synchronizer (CDC Solution)</text>
+    
+    <!-- Clock Domain A (Source) -->
+    <rect x="10" y="40" width="200" height="150" fill="#fff3cd" stroke="#ffc107" stroke-width="2" rx="8" stroke-dasharray="5"/>
+    <text x="110" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#856404">CLOCK DOMAIN A (100MHz)</text>
+    
+    <!-- Source Signal -->
+    <rect x="30" y="90" width="80" height="50" fill="#87CEEB" stroke="#333" stroke-width="2" rx="4"/>
+    <text x="70" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">SOURCE</text>
+    <text x="70" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">Signal</text>
+    
+    <!-- Arrow from Source -->
+    <line x1="110" y1="115" x2="220" y2="115" stroke="#333" stroke-width="2"/>
+    
+    <!-- Clock Domain B (Destination) -->
+    <rect x="220" y="40" width="420" height="150" fill="#d4edda" stroke="#28a745" stroke-width="2" rx="8" stroke-dasharray="5"/>
+    <text x="430" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#155724">CLOCK DOMAIN B (50MHz)</text>
+    
+    <!-- Metastability Zone -->
+    <rect x="230" y="75" width="120" height="100" fill="#ffe0e0" stroke="#dc3545" stroke-width="1" rx="4" stroke-dasharray="3"/>
+    <text x="290" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#dc3545">⚠️ Metastable Zone</text>
+    
+    <!-- FF1 -->
+    <rect x="250" y="100" width="70" height="50" fill="#f0f8ff" stroke="#0066cc" stroke-width="2" rx="4"/>
+    <text x="285" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold">FF1</text>
+    <text x="285" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="9">(Sync)</text>
+    <!-- Clock triangle -->
+    <path d="M 250 140 L 260 145 L 250 150" fill="none" stroke="#333" stroke-width="1.5"/>
+    
+    <!-- Arrow FF1 to FF2 -->
+    <line x1="320" y1="125" x2="370" y2="125" stroke="#333" stroke-width="2" marker-end="url(#arrow-cdc)"/>
+    
+    <!-- FF2 -->
+    <rect x="370" y="100" width="70" height="50" fill="#f0f8ff" stroke="#0066cc" stroke-width="2" rx="4"/>
+    <text x="405" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold">FF2</text>
+    <text x="405" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="9">(Sync)</text>
+    <!-- Clock triangle -->
+    <path d="M 370 140 L 380 145 L 370 150" fill="none" stroke="#333" stroke-width="1.5"/>
+    
+    <!-- Arrow FF2 to Output -->
+    <line x1="440" y1="125" x2="500" y2="125" stroke="#333" stroke-width="2" marker-end="url(#arrow-cdc)"/>
+    
+    <!-- Safe Output -->
+    <rect x="500" y="95" width="120" height="60" fill="#28a745" stroke="#155724" stroke-width="2" rx="4"/>
+    <text x="560" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="white">SAFE</text>
+    <text x="560" y="138" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="white">Output</text>
+    
+    <!-- CLK_B Label -->
+    <text x="340" y="175" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#0066cc">↑ CLK_B (Both FFs sample on CLK_B)</text>
+    
+    <!-- Arrow Marker Definition -->
+    <defs>
+        <marker id="arrow-cdc" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#333"/>
+        </marker>
+    </defs>
+    
+    <!-- Explanation -->
+    <text x="325" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#666" font-style="italic">FF1 may go metastable, but FF2 sees stable value → Safe output guaranteed after 2 CLK_B cycles.</text>
+</svg>
