@@ -182,13 +182,18 @@ FPGA-PYNQ-Z2-Labs/
 4. Check Console for PASS/FAIL results
 ```
 
-### Hardware (PYNQ-Z2)
-```
-1. Add all .v files from project folder
-2. Add .xdc constraints
-3. Synthesis → Implementation → Generate Bitstream
-4. Program Device
-```
+### Simulation Walkthrough (Verification Evidence)
+Since physical hardware is not required to verify logic correctness, we rely on **Vivado Behavioral Simulation**:
+
+1. **Open Project** in Vivado.
+2. Set `tb_vending_machine` as Top.
+3. Click **Run Simulation > Run Behavioral Simulation**.
+4. View Waveform:
+   - Observe `current_state` transitioning: `IDLE (000)` → `ACCUMULATE (001)`.
+   - Verify `dispense` signal asserts only when `balance >= price`.
+   - Check `change` calculation logic.
+
+> **Note:** The included `timing_summary.rpt` proves that the design successfully passed Place & Route with positive slack, confirming physical feasibility.
 
 ### Run Timing Automation
 ```bash
