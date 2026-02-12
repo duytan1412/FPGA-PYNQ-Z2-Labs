@@ -1,6 +1,7 @@
 # FPGA-PYNQ-Z2-Labs
 
-A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **Vivado**.
+A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **Vivado**. 
+Demonstrates skills in **Digital Design**, **Timing Closure**, **Tcl Automation**, and **SystemVerilog Verification**.
 
 ---
 
@@ -11,7 +12,10 @@ A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **
 **Key Features:**
 - 6-state Moore FSM: `IDLE → ACCUMULATE → SELECT → DISPENSE → CHANGE → ERROR`
 - Self-Checking Testbench with 8 corner case scenarios
+- 6-state Moore FSM: `IDLE → ACCUMULATE → SELECT → DISPENSE → CHANGE → ERROR`
+- Self-Checking Testbench with 8 corner case scenarios
 - 100% logic verification via automated PASS/FAIL output
+- **Feature:** [🐛 How I Debug Timing Violations](./HOW_I_DEBUG_TIMING.md) ( Methodology Guide)
 
 ### Simulation Waveform (Vivado)
 ![Vending Machine Waveform](./04_Vending_Machine/docs/waveform_simulation.png)
@@ -36,7 +40,7 @@ A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **
 
 ---
 
-## 📁 All Projects
+## 📂 All Projects
 
 | # | Project | Description | Skills Demonstrated |
 |---|---------|-------------|---------------------|
@@ -44,6 +48,38 @@ A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **
 | 02 | [7-Segment Counter](./02_7Segment_Counter) | 0000-9999 auto counter | FSM, Multiplexing, BCD |
 | 03 | [Button Up/Down](./03_Button_UpDown_Counter) | Button-controlled counter | Debounce, Edge detection |
 | 04 | [**Vending Machine**](./04_Vending_Machine) | **Moore FSM Controller** | **Complex FSM, ALU, Verification** |
+| 05 | [**Verification**](./verification) | **SystemVerilog Testbench** | **Assertions, Covergroups, Randomization** |
+
+---
+
+## 🛠 Tools & Automation
+
+This repository includes custom scripts to automate the **Timing Closure** and **Reporting** flow, commonly used in EDA/FPGA Applications Engineering.
+
+### 1. Tcl Script: Report Timing & Utilization
+Located in `tools/report_timing.tcl`. Run this in Vivado Tcl Console or Batch mode to generate standard reports.
+
+```tcl
+vivado -mode batch -source tools/report_timing.tcl -tclargs MyProject impl_1
+```
+
+### 2. Python Script: Parse Timing Report
+Located in `tools/collect_timing.py`. identifying WNS/TNS metrics from generated text reports.
+
+```bash
+python tools/collect_timing.py reports/timing_summary.rpt
+```
+
+**Output Example:**
+```text
+----------------------------------------
+Timing Report Summary: reports/timing_summary.rpt
+----------------------------------------
+WNS (Worst Negative Slack): 3.889 ns
+Status: PASS
+TNS (Total Negative Slack): 0.0 ns
+----------------------------------------
+```
 
 ---
 
@@ -99,6 +135,13 @@ Failed: 0
 
 ```
 FPGA-PYNQ-Z2-Labs/
+├── tools/                  # [NEW] Automation Scripts
+│   ├── report_timing.tcl   # Vivado Tcl script
+│   └── collect_timing.py   # Python parser
+│
+├── verification/           # [NEW] SystemVerilog Verification
+│   └── top_tb.sv           # Testbench with Assertions & Coverage
+│
 ├── 01_LED_Blink/
 │   ├── clk_divider.v      # Clock divider module
 │   ├── led_blink.v        # Top module (shift register pattern)
@@ -145,6 +188,15 @@ FPGA-PYNQ-Z2-Labs/
 2. Add .xdc constraints
 3. Synthesis → Implementation → Generate Bitstream
 4. Program Device
+```
+
+### Run Timing Automation
+```bash
+# Generate report via Vivado
+vivado -mode batch -source tools/report_timing.tcl -tclargs MyProject impl_1
+
+# Parse results
+python tools/collect_timing.py reports/timing_summary.rpt
 ```
 
 ---
