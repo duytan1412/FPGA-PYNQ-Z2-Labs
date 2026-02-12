@@ -211,9 +211,7 @@ python tools/collect_timing.py reports/timing_summary.rpt
 ## 👤 Author
 
 **Bì Duy Tân**  
-FPT Jetking Academy - Chip Design Technology  
-Semester 2 (2025-2027)
-
+FPT Jetking Academy - Chip Design Technol![Vivado](https://img.shields.io/badge/Vivado-2020.2-green) ![Board](https://img.shields.io/badge/Board-PYNQ--Z2-blue) ![Verilog](https://img.shields.io/badge/HDL-Verilog-orange) [![CI](https://github.com/duytan1412/FPGA-PYNQ-Z2-Labs/actions/workflows/ci.yml/badge.svg)](https://github.com/duytan1412/FPGA-PYNQ-Z2-Labs/actions/workflows/ci.yml)ogy  
 📧 duytan2903@gmail.com  
 🔗 [LinkedIn](https://linkedin.com/in/bi-duy-tan) | [GitHub](https://github.com/duytan1412)
 

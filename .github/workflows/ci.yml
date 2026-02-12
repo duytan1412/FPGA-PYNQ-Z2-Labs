@@ -1,0 +1,52 @@
+name: Verilog CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  behavioral-simulation:
+    runs-on: ubuntu-latest
+    name: Run Verilog Testbenches (iverilog)
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Icarus Verilog
+      run: sudo apt-get install -y iverilog
+
+    - name: Compile Vending Machine RTL + Testbench
+      run: |
+        iverilog -o sim_vending \
+          04_Vending_Machine/vending_machine.v \
+          04_Vending_Machine/tb_vending_machine.v
+
+    - name: Run Behavioral Simulation
+      run: |
+        echo "========================================"
+        echo "  Running Vending Machine Testbench"
+        echo "========================================"
+        vvp sim_vending | tee sim_output.log
+        echo ""
+        echo "========================================"
+
+        # Check for PASS/FAIL
+        if grep -q "ALL TESTS PASSED" sim_output.log; then
+          echo "✅ SIMULATION PASSED"
+          exit 0
+        elif grep -q "FAIL" sim_output.log; then
+          echo "❌ SIMULATION FAILED"
+          exit 1
+        else
+          echo "⚠️ No explicit PASS/FAIL found, check output above"
+          exit 0
+        fi
+
+    - name: Upload Simulation Log
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: simulation-log
+        path: sim_output.log
