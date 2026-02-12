@@ -103,11 +103,12 @@ module tb_vending_machine;
         //---------------------------------------------------------------------
         // Test 1: Insufficient Funds
         // Insert 10, try to buy Item A (costs 15) -> Should error
+        // Balance should REMAIN 10 (System shouldn't steal money on error)
         //---------------------------------------------------------------------
         $display("--- Test 1: Insert Coin 10, Buy Item A (15), Insufficient ---");
         coin = 2'b10; #10; coin = 2'b00; #10;  // Insert 10
         item_sel = 2'b01; #10; item_sel = 2'b00; #20;  // Select Item A
-        check_result(0, 0, 0, 1, "Insufficient funds for Item A");
+        check_result(10, 0, 0, 1, "Insufficient funds for Item A (Keep Balance)");
         #20;
 
         reset = 1; #10; reset = 0; #10;  // Reset for next test
@@ -152,11 +153,13 @@ module tb_vending_machine;
         //---------------------------------------------------------------------
         // Test 5: Cancel with Balance (Refund)
         // Insert 5+10=15, Cancel -> Refund 15
+        // CHANGE state is faster than SELECT->DISPENSE->CHANGE loop
+        // So we wait only #10 to catch the output pulse
         //---------------------------------------------------------------------
         $display("--- Test 5: Insert 5+10=15, Cancel, Get Refund ---");
         coin = 2'b01; #10; coin = 2'b00; #10;  // Insert 5
         coin = 2'b10; #10; coin = 2'b00; #10;  // Insert 10
-        cancel = 1; #10; cancel = 0; #30;
+        cancel = 1; #10; cancel = 0; #10;      // Reduced wait time for direct transition
         check_result(0, 0, 15, 0, "Cancel and get refund");
         #20;
 
