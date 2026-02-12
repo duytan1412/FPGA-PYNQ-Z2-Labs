@@ -12,10 +12,8 @@ Demonstrates skills in **Digital Design**, **Timing Closure**, **Tcl Automation*
 **Key Features:**
 - 6-state Moore FSM: `IDLE → ACCUMULATE → SELECT → DISPENSE → CHANGE → ERROR`
 - Self-Checking Testbench with 8 corner case scenarios
-- 6-state Moore FSM: `IDLE → ACCUMULATE → SELECT → DISPENSE → CHANGE → ERROR`
-- Self-Checking Testbench with 8 corner case scenarios
 - 100% logic verification via automated PASS/FAIL output
-- **Feature:** [🐛 How I Debug Timing Violations](./HOW_I_DEBUG_TIMING.md) ( Methodology Guide)
+- **Feature:** [🐛 How I Debug Timing Violations](./HOW_I_DEBUG_TIMING.md) (Methodology Guide)
 
 ### Simulation Waveform (Vivado)
 ![Vending Machine Waveform](./04_Vending_Machine/docs/waveform_simulation.png)
@@ -49,6 +47,7 @@ Demonstrates skills in **Digital Design**, **Timing Closure**, **Tcl Automation*
 | 03 | [Button Up/Down](./03_Button_UpDown_Counter) | Button-controlled counter | Debounce, Edge detection |
 | 04 | [**Vending Machine**](./04_Vending_Machine) | **Moore FSM Controller** | **Complex FSM, ALU, Verification** |
 | 05 | [**Verification**](./verification) | **SystemVerilog Testbench** | **Assertions, Covergroups, Randomization** |
+| 06 | [**Mini-UVM**](./uvm_example) | **UVM Verification Environment** | **Driver, Monitor, Scoreboard, Coverage** |
 
 ---
 
@@ -141,6 +140,12 @@ FPGA-PYNQ-Z2-Labs/
 │
 ├── verification/           # [NEW] SystemVerilog Verification
 │   └── top_tb.sv           # Testbench with Assertions & Coverage
+│
+├── uvm_example/            # [NEW] Mini-UVM Verification Environment
+│   ├── rtl/counter.sv      # DUT: 4-bit counter
+│   ├── tb/                 # UVM components (Driver, Monitor, Scoreboard)
+│   ├── top/tb_top.sv       # Top-level testbench
+│   └── run_sim.sh          # Multi-tool run script (VCS/Questa/XSIM)
 │
 ├── 01_LED_Blink/
 │   ├── clk_divider.v      # Clock divider module
