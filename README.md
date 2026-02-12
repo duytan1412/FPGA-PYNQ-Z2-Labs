@@ -183,15 +183,12 @@ FPGA-PYNQ-Z2-Labs/
 ```
 
 ### Simulation Walkthrough (Verification Evidence)
-Since physical hardware is not required to verify logic correctness, we rely on **Vivado Behavioral Simulation**:
+> **🎥 [Watch Video Demo](./docs/FPGA_Simulation_walkthrough.mp4)** (Click to download/view raw file)
 
-1. **Open Project** in Vivado.
-2. Set `tb_vending_machine` as Top.
-3. Click **Run Simulation > Run Behavioral Simulation**.
-4. View Waveform:
-   - Observe `current_state` transitioning: `IDLE (000)` → `ACCUMULATE (001)`.
-   - Verify `dispense` signal asserts only when `balance >= price`.
-   - Check `change` calculation logic.
+Since physical hardware is not required to verify logic correctness, we rely on **Vivado Behavioral Simulation**. The video demonstrates:
+1. **Waveform Analysis**: Observing `current_state` transitions `IDLE` → `ACCUMULATE`.
+2. **Logic Verification**: Confirming correct dispensing and change calculation.
+3. **Automated Testbench**: Showing `*** ALL TESTS PASSED ***` in Tcl Console.
 
 > **Note:** The included `timing_summary.rpt` proves that the design successfully passed Place & Route with positive slack, confirming physical feasibility.
 
