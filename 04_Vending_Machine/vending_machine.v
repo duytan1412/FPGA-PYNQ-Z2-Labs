@@ -82,10 +82,10 @@ module vending_machine(
             end
             
             ACCUMULATE: begin
-                if (item_sel != 2'b00)
-                    next_state = SELECT;
-                else if (cancel)
+                if (cancel)                    // Cancel has HIGHEST priority (safety-critical)
                     next_state = CHANGE;
+                else if (item_sel != 2'b00)
+                    next_state = SELECT;
                 // Stay in ACCUMULATE until action or cancel
             end
             
