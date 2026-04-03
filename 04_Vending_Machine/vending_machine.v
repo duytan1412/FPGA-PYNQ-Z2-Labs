@@ -1,9 +1,7 @@
 `timescale 1ns / 1ps
 
-//=============================================================================
 // Module: vending_machine
-// Description: Smart Vending Machine Controller using Moore FSM
-//=============================================================================
+// Project: Smart Vending Machine FSM
 
 module vending_machine(
     input        clk,           // System clock
@@ -18,9 +16,7 @@ module vending_machine(
     output reg [2:0] state_out  // Current state (for debug)
 );
 
-    //=========================================================================
-    // State Definition (Moore Machine - 6 states)
-    //=========================================================================
+    // State encoding (Moore FSM)
     localparam IDLE      = 3'b000;  // Waiting for coin
     localparam ACCUMULATE = 3'b001; // Accumulating coins
     localparam SELECT    = 3'b010;  // Processing item selection
@@ -35,31 +31,23 @@ module vending_machine(
     localparam COIN_10   = 2'b10;   // 10 units
     localparam COIN_20   = 2'b11;   // 20 units
 
-    //=========================================================================
-    // Item Definition
-    //=========================================================================
+    // Products
     localparam ITEM_A    = 2'b01;   // Item A
     localparam ITEM_B    = 2'b10;   // Item B
     localparam ITEM_C    = 2'b11;   // Item C
 
-    //=========================================================================
-    // Price Definition
-    //=========================================================================
+    // Prices
     localparam PRICE_A   = 8'd15;   // Item A costs 15
     localparam PRICE_B   = 8'd25;   // Item B costs 25
     localparam PRICE_C   = 8'd30;   // Item C costs 30
     localparam MAX_BALANCE = 8'd99; // Overflow protection
 
-    //=========================================================================
-    // Internal Registers
-    //=========================================================================
+    // Internals
     reg [2:0] state, next_state;    // Current and next state
     reg [7:0] item_price;           // Selected item price
     reg [1:0] selected_item;        // Selected item ID
 
-    //=========================================================================
-    // State Register (Sequential Logic)
-    //=========================================================================
+    // Coin inputs
     always @(posedge clk or posedge reset) begin
         if (reset)
             state <= IDLE;
@@ -67,9 +55,7 @@ module vending_machine(
             state <= next_state;
     end
 
-    //=========================================================================
-    // Next State Logic (Combinational Logic)
-    //=========================================================================
+    // Next state logic
     always @(*) begin
         next_state = state;  // Default: stay in current state
         
@@ -82,7 +68,7 @@ module vending_machine(
             end
             
             ACCUMULATE: begin
-                if (cancel)                    // Cancel has HIGHEST priority (safety-critical)
+                if (cancel)                    // Priority handle for cancel
                     next_state = CHANGE;
                 else if (item_sel != 2'b00)
                     next_state = SELECT;
@@ -112,9 +98,7 @@ module vending_machine(
         endcase
     end
 
-    //=========================================================================
-    // Output Logic (Sequential - Moore Machine)
-    //=========================================================================
+    // Output logic
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             // Reset all outputs
@@ -129,15 +113,12 @@ module vending_machine(
             state_out <= state;  // Debug output
             
             case (state)
-                //-------------------------------------------------------------
-                // IDLE State: Wait for coin insertion
-                //-------------------------------------------------------------
                 IDLE: begin
                     dispense <= 2'b00;
                     change <= 8'd0;
                     error <= 1'b0;
                     
-                    // Add coin to balance
+                    // Add coins
                     if (coin != 2'b00) begin
                         case (coin)
                             COIN_5:  if (balance + 8'd5 <= MAX_BALANCE) balance <= balance + 8'd5;
@@ -147,9 +128,6 @@ module vending_machine(
                     end
                 end
                 
-                //-------------------------------------------------------------
-                // ACCUMULATE State: Continue adding coins
-                //-------------------------------------------------------------
                 ACCUMULATE: begin
                     // Add more coins
                     if (coin != 2'b00) begin
@@ -172,33 +150,21 @@ module vending_machine(
                     end
                 end
                 
-                //-------------------------------------------------------------
-                // SELECT State: Check if enough balance
-                //-------------------------------------------------------------
                 SELECT: begin
                     // Decision made in next_state logic
                 end
                 
-                //-------------------------------------------------------------
-                // DISPENSE State: Output the item
-                //-------------------------------------------------------------
                 DISPENSE: begin
                     dispense <= selected_item;
                     balance <= balance - item_price;  // Subtract price (ALU)
                 end
                 
-                //-------------------------------------------------------------
-                // CHANGE State: Return remaining balance
-                //-------------------------------------------------------------
                 CHANGE: begin
                     change <= balance;    // Return all balance as change
                     balance <= 8'd0;      // Clear balance
                     dispense <= 2'b00;    // Clear dispense
                 end
                 
-                //-------------------------------------------------------------
-                // ERROR State: Insufficient funds
-                //-------------------------------------------------------------
                 ERROR_ST: begin
                     error <= 1'b1;        // Set error flag
                     dispense <= 2'b00;    // No dispense

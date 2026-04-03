@@ -1,62 +1,45 @@
 # FPGA-PYNQ-Z2-Labs
 
-A collection of FPGA lab projects developed on **Xilinx PYNQ-Z2** board using **Vivado**. 
-Demonstrates skills in **Digital Design**, **Timing Closure**, **Tcl Automation**, and **SystemVerilog Verification**.
+My FPGA lab projects for the **Xilinx PYNQ-Z2** board. These covers Verilog design, timing analysis with Vivado, and some UVM/SystemVerilog verification.
 
 ![Vivado](https://img.shields.io/badge/Vivado-2020.2-green)
 ![Board](https://img.shields.io/badge/Board-PYNQ--Z2-blue)
 ![Verilog](https://img.shields.io/badge/HDL-Verilog-orange)
-[![CI](https://github.com/duytan1412/FPGA-PYNQ-Z2-Labs/actions/workflows/ci.yml/badge.svg)](https://github.com/duytan1412/FPGA-PYNQ-Z2-Labs/actions/workflows/ci.yml)
 
 ---
 
-## 🎯 Highlight Project: Smart Vending Machine FSM
+## Vending Machine FSM (Highlight)
 
-> **6-state Moore FSM Controller** with Self-Checking Testbench
+A 6-state Moore machine controller with a self-checking testbench.
 
-**Key Features:**
-- 6-state Moore FSM: `IDLE → ACCUMULATE → SELECT → DISPENSE → CHANGE → ERROR`
-- Self-Checking Testbench with 8 corner case scenarios
-- 100% logic verification via automated PASS/FAIL output
-- **Feature:** [🐛 How I Debug Timing Violations](./HOW_I_DEBUG_TIMING.md) (Methodology Guide)
+**Main logic:**
+- 6 states: `IDLE, ACCUMULATE, SELECT, DISPENSE, CHANGE, ERROR`
+- Testbench covers 8 scenarios (coin, cancel, buy, etc)
+- Timing fixed [here](./HOW_I_DEBUG_TIMING.md)
 
-### Simulation Waveform (Vivado)
-![Vending Machine Waveform (Fixed - Safety Prioritized)](./04_Vending_Machine/docs/waveform_vending_fixed.png)
-*Testbench running all 8 scenarios: coin insertion, item selection, balance tracking, dispense, and change calculation*
-
-### State Diagram (Moore FSM)
+### Waveform & State Diagram
+![Vending Machine Waveform](./04_Vending_Machine/docs/waveform_vending_fixed.png)
 
 ![Vending Machine State Diagram](./docs/fsm_diagram.svg)
 
-
-**State Descriptions:**
-| State | Function | Output |
-|-------|----------|--------|
-| `IDLE` | Wait for coin insertion | All outputs = 0 |
-| `ACCUMULATE` | Add coins to balance | Update balance |
-| `SELECT` | Check if balance >= price | - |
-| `DISPENSE` | Activate motor, subtract price | dispense = item_code |
-| `CHANGE` | Return remaining balance | change = balance |
-| `ERROR` | Signal insufficient funds | error = 1 |
-
-📂 [**View Vending Machine Code →**](./04_Vending_Machine)
+[Go to project files](./04_Vending_Machine)
 
 ---
 
-## 📂 All Projects
+## Projects List
 
-| # | Project | Description | Skills Demonstrated |
-|---|---------|-------------|---------------------|
-| 01 | [LED Blink](./01_LED_Blink) | Running LED pattern | Clock divider, Shift register |
-| 02 | [7-Segment Counter](./02_7Segment_Counter) | 0000-9999 auto counter | FSM, Multiplexing, BCD |
-| 03 | [Button Up/Down](./03_Button_UpDown_Counter) | Button-controlled counter | Debounce, Edge detection |
-| 04 | [**Vending Machine**](./04_Vending_Machine) | **Moore FSM Controller** | **Complex FSM, ALU, Verification** |
-| 05 | [**Verification**](./verification) | **SystemVerilog Testbench** | **Assertions, Covergroups, Randomization** |
-| 06 | [**Mini-UVM**](./uvm_example) | **UVM Verification Environment** | **Driver, Monitor, Scoreboard, Coverage** |
+| # | Project | Notes |
+|---|---------|-------|
+| 01 | [LED Blink](./01_LED_Blink) | Clock dividers |
+| 02 | [7-Segment Counter](./02_7Segment_Counter) | Multiplexing FSM |
+| 03 | [Button Up/Down](./03_Button_UpDown_Counter) | Debouncing |
+| 04 | [Vending Machine](./04_Vending_Machine) | Moore FSM & ALU |
+| 05 | [SystemVerilog](./verification) | Assertions & Groups |
+| 06 | [UVM Basic](./uvm_example) | Scoreboard & Coverage |
 
 ---
 
-## 🛠 Tools & Automation
+## Automation Scripts
 
 This repository includes custom scripts to automate the **Timing Closure** and **Reporting** flow, commonly used in EDA/FPGA Applications Engineering.
 
@@ -87,7 +70,7 @@ TNS (Total Negative Slack): 0.0 ns
 
 ---
 
-## 📊 Testbench Results (Self-Checking)
+## TB Results
 
 ```
 ========== VENDING MACHINE TESTBENCH ==========
@@ -110,7 +93,7 @@ Failed: 0
 
 ---
 
-## 🛠 Hardware
+## Hardware Used
 
 - **Board**: PYNQ-Z2 (Xilinx Zynq-7000, xc7z020clg400-1)
 - **Clock**: 125 MHz
@@ -118,7 +101,7 @@ Failed: 0
 
 ---
 
-## ⏱ Timing Report (Vivado Implementation)
+## Timing Summary
 
 ![Timing Report](./docs/timing_report.png)
 
@@ -135,7 +118,7 @@ Failed: 0
 
 ---
 
-## 📂 Project Structure
+## Repo Structure
 
 ```
 FPGA-PYNQ-Z2-Labs/
@@ -182,7 +165,7 @@ FPGA-PYNQ-Z2-Labs/
 
 ---
 
-## 🚀 How to Use
+## Setup & Running
 
 ### Simulation (Vivado)
 ```
@@ -192,15 +175,11 @@ FPGA-PYNQ-Z2-Labs/
 4. Check Console for PASS/FAIL results
 ```
 
-### Simulation Walkthrough (Verification Evidence)
-> **🎥 [Watch Video Demo](./docs/FPGA_Simulation_walkthrough.mp4)** (Click to download/view raw file)
+### Simulation demo
+[Watch Video](./docs/FPGA_Simulation_walkthrough.mp4)
 
-Since physical hardware is not required to verify logic correctness, we rely on **Vivado Behavioral Simulation**. The video demonstrates:
-1. **Waveform Analysis**: Observing `current_state` transitions `IDLE` → `ACCUMULATE`.
-2. **Logic Verification**: Confirming correct dispensing and change calculation.
-3. **Automated Testbench**: Showing `*** ALL TESTS PASSED ***` in Tcl Console.
-
-> **Note:** The included `timing_summary.rpt` proves that the design successfully passed Place & Route with positive slack, confirming physical feasibility.
+Tested in Vivado simulator. The video shows state transitions and pass/fail logging.
+Timing reports confirmed positive slack for the implementation.
 
 ### Run Timing Automation
 ```bash

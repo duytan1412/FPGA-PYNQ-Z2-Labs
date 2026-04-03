@@ -1,33 +1,23 @@
-# Smart Vending Machine Controller (FSM Based)
+# Vending Machine Controller (FSM)
 
-A **Moore FSM-based** vending machine controller demonstrating complex state machine design, arithmetic logic, and professional verification methodology.
+A Moore FSM design for a vending machine. Includes a self-checking testbench to verify all state transitions.
 
----
+## Overview
+Handled inputs for coins (5, 10, 20) and item selection (A, B, C). Includes balance tracking and change calculation. 
 
-## 📋 Description
-
-Designed a **Moore FSM controller** (6 states) handling concurrent inputs (Coin insertion, Item selection) and arithmetic operations (Balance/Change calculation).
-
-Developed a comprehensive **Self-Checking Testbench** covering 10+ simulation scenarios, including corner cases (overflow protection, invalid inputs, async reset).
-
-**Result:** Verified 100% logic correctness via Vivado Waveform Analysis, demonstrating strong **pre-silicon verification** skills.
+Verified everything in Vivado with 8+ test scenarios covering normal purchase, insufficient funds, and cancel/refund.
 
 ---
 
-## 🔧 Features
-
-| Feature | Implementation |
-|---------|----------------|
-| FSM Type | Moore Machine (6 states) |
-| States | IDLE, ACCUMULATE, SELECT, DISPENSE, CHANGE, ERROR |
-| Coin Types | 5, 10, 20 units |
-| Items | A (15), B (25), C (30) |
-| Overflow Protection | Max balance 99 |
-| Verification | Self-checking Testbench with 8 corner cases |
+## Features
+- FSM: Moore Machine (6 states)
+- Coins: 5, 10, 20
+- Items: A(15), B(25), C(30)
+- Safeguards: Max balance 99, 100% coverage in TB
 
 ---
 
-## 📊 Simulation Result
+## Simulation
 
 ### Waveform (Vivado Behavioral Simulation)
 
@@ -42,28 +32,28 @@ Developed a comprehensive **Self-Checking Testbench** covering 10+ simulation sc
 - **state[2:0]**: FSM state transitions
 - **pass_count**: Tests passing (8/8)
 
-### Console Output (Self-Checking)
-
 ```
-========== VENDING MACHINE TESTBENCH ==========
+--- Vending machine TB ---
 
-[PASS] Test 1: Insufficient funds for Item A
+[PASS] Test 1: Insuff fund for Item A
 [PASS] Test 2: Buy Item A with change
 [PASS] Test 3: Buy Item C exact change
 [PASS] Test 4: Cancel with zero balance
 [PASS] Test 5: Cancel and get refund
 [PASS] Test 6: Overflow protection (bal<=99)
-[PASS] Test 7: No coin, select item -> error
+[PASS] Test 7: No coin, select item B -> Ignore
 [PASS] Test 8: Reset clears balance
 
-========== TEST SUMMARY ==========
-Passed: 8 | Failed: 0
+--- Summary ---
+Total: 8
+Pass: 8
+Fail: 0
 *** ALL TESTS PASSED! ***
 ```
 
 ---
 
-## 📐 State Diagram
+## State Diagram
 
 ![Vending Machine State Diagram](../docs/fsm_diagram.svg)
 
@@ -80,7 +70,7 @@ Passed: 8 | Failed: 0
 
 ---
 
-## 📁 Files
+## Files
 
 | File | Description |
 |------|-------------|
@@ -91,7 +81,7 @@ Passed: 8 | Failed: 0
 
 ---
 
-## 🚀 How to Simulate
+## Running Simulation
 
 ```bash
 1. Open Vivado → Create RTL Project

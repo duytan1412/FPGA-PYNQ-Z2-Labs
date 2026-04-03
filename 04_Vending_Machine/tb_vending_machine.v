@@ -1,16 +1,10 @@
 `timescale 1ns / 1ps
 
-//=============================================================================
-// Testbench: tb_vending_machine
-// Description: Self-Checking Testbench for Vending Machine Controller
-// Test Scenarios: 8 corner cases covering all FSM transitions
-//=============================================================================
+// testbench for vending machine
 
 module tb_vending_machine;
 
-    //=========================================================================
-    // Testbench Signals
-    //=========================================================================
+    // signals
     reg        clk;
     reg        reset;
     reg  [1:0] coin;
@@ -22,16 +16,12 @@ module tb_vending_machine;
     wire       error;
     wire [2:0] state_out;
 
-    //=========================================================================
-    // Test Counters
-    //=========================================================================
+    // counters
     integer pass_count;
     integer fail_count;
     integer test_num;
 
-    //=========================================================================
-    // Device Under Test (DUT)
-    //=========================================================================
+    // instance
     vending_machine uut (
         .clk(clk),
         .reset(reset),
@@ -45,17 +35,13 @@ module tb_vending_machine;
         .state_out(state_out)
     );
 
-    //=========================================================================
-    // Clock Generation (100MHz = 10ns period)
-    //=========================================================================
+    // 100MHz clock
     initial begin
         clk = 0;
         forever #5 clk = ~clk;
     end
 
-    //=========================================================================
-    // Self-Checking Task
-    //=========================================================================
+    // self-check task
     task check_result;
         input [7:0] exp_balance;
         input [1:0] exp_dispense;
@@ -80,9 +66,7 @@ module tb_vending_machine;
         end
     endtask
 
-    //=========================================================================
-    // Test Scenarios
-    //=========================================================================
+    // main test
     initial begin
         // Initialize counters
         pass_count = 0;
@@ -98,17 +82,12 @@ module tb_vending_machine;
         reset = 0;
         #10;
         
-        $display("\n========== VENDING MACHINE TESTBENCH ==========\n");
+        $display("\n--- Vending machine TB ---\n");
 
-        //---------------------------------------------------------------------
-        // Test 1: Insufficient Funds
-        // Insert 10, try to buy Item A (costs 15) -> Should error
-        // Balance should REMAIN 10 (System shouldn't steal money on error)
-        //---------------------------------------------------------------------
-        $display("--- Test 1: Insert Coin 10, Buy Item A (15), Insufficient ---");
-        coin = 2'b10; #10; coin = 2'b00; #10;  // Insert 10
-        item_sel = 2'b01; #10; item_sel = 2'b00; #20;  // Select Item A
-        check_result(10, 0, 0, 1, "Insufficient funds for Item A (Keep Balance)");
+        $display("Test 1: Insuff fund for Item A");
+        coin = 2'b10; #10; coin = 2'b00; #10;
+        item_sel = 2'b01; #10; item_sel = 2'b00; #20;
+        check_result(10, 0, 0, 1, "Keep balance on err");
         #20;
 
         reset = 1; #10; reset = 0; #10;  // Reset for next test
@@ -206,14 +185,11 @@ module tb_vending_machine;
         check_result(0, 0, 0, 0, "Reset clears balance");
         #20;
 
-        //=====================================================================
-        // Test Summary
-        //=====================================================================
-        $display("\n========== TEST SUMMARY ==========");
-        $display("Total Tests: %0d", pass_count + fail_count);
-        $display("Passed: %0d", pass_count);
-        $display("Failed: %0d", fail_count);
-        $display("==================================\n");
+        $display("\n--- Summary ---");
+        $display("Total: %0d", pass_count + fail_count);
+        $display("Pass: %0d", pass_count);
+        $display("Fail: %0d", fail_count);
+        $display("---------------\n");
 
         if (fail_count == 0)
             $display("*** ALL TESTS PASSED! ***\n");

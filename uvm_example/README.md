@@ -1,21 +1,17 @@
-# Mini-UVM Example: 4-bit Counter Verification
+# Mini-UVM Counter Verification
 
-A minimal but complete **UVM (Universal Verification Methodology)** testbench demonstrating industry-standard verification flow.
+A minimal UVM testbench for a 4-bit counter. 
 
----
-
-## 🎯 Purpose
-
-This example proves understanding of the **UVM framework** used by Synopsys, Cadence, and Mentor tools for chip verification. It contains:
-
-- **DUT**: Simple 4-bit up-counter (`counter.sv`)
-- **UVM Testbench**: Complete environment with Driver, Monitor, Scoreboard
-- **Coverage**: Functional coverage for all counter values
-- **Constrained Random**: Randomized reset sequences
+## Purpose
+This project covers the basic UVM components:
+- **DUT**: 4-bit up-counter (`counter.sv`)
+- **TB**: Driver, Monitor, Scoreboard, and Environment
+- **Coverage**: Basic functional coverage for counter values
+- **Sequences**: Randomized reset and increment sequences
 
 ---
 
-## 📂 Structure
+## Directory Structure
 
 ```
 uvm_example/
@@ -38,7 +34,7 @@ uvm_example/
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ### Using VCS (Synopsys)
 ```bash
@@ -63,11 +59,11 @@ xelab tb_top -s sim_snapshot
 xsim sim_snapshot -R
 ```
 
-> **Note:** This example is designed to compile and run on any SystemVerilog simulator. UVM library is included with VCS/Questa. For Vivado XSIM, simplified self-checking (non-UVM) mode is also supported.
+Note: This works with VCS, Questa, or Vivado XSIM. UVM 1.2 is used.
 
 ---
 
-## 📊 Expected Output
+## Simulation Output
 
 ```
 UVM_INFO @ 0: reporter [RNTST] Running test counter_test...
@@ -93,14 +89,9 @@ UVM_FATAL :    0
 
 ---
 
-## 💡 Key Concepts Demonstrated
-
-| UVM Concept | Implementation | Why It Matters |
-|-------------|---------------|----------------|
-| **Virtual Interface** | `counter_if.sv` | Connects TB to DUT without hardcoding |
-| **Sequence Item** | `counter_seq.sv` | Transaction-level modeling (TLM) |
-| **Driver** | `counter_driver.sv` | Converts transactions to pin wiggles |
-| **Monitor** | `counter_monitor.sv` | Passive observation of DUT signals |
-| **Scoreboard** | `counter_scoreboard.sv` | Automated checking (reference model) |
-| **Coverage** | `counter_env.sv` | Proves completeness of verification |
-| **Factory** | `counter_test.sv` | Run-time test selection |
+## UVM Concepts Covered
+- **Virtual Interface**: Connects TB to RTL
+- **Transaction Modeling**: `counter_seq.sv`
+- **Driver/Monitor**: Handles pin-level logic and passive checking
+- **Scoreboard**: Self-checking against a reference model
+- **Functional Coverage**: Tracks progress via `counter_env.sv`

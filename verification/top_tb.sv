@@ -58,28 +58,26 @@ module top_tb;
     assert_counter_hold: assert property (p_counter_hold)
         else $error("Assertion Failed: Counter did not hold value!");
 
-    // Test Sequence
+    // test sequence
     initial begin
-        // Initialize
         rst_n = 0;
         en = 0;
         
-        // Reset
         #20;
         rst_n = 1;
         $display("[%0t] Reset released", $time);
 
-        // Verification Scenario 1: Basic Counting
+        // test basic count
         en = 1;
-        repeat(20) @(posedge clk); // Allow overflow
+        repeat(20) @(posedge clk);
         
-        // Verification Scenario 2: Enable Toggle
+        // test enable toggle
         en = 0;
         repeat(5) @(posedge clk);
         en = 1;
         repeat(5) @(posedge clk);
 
-        // End Simulation
+        // End
         #100;
         $display("Verification Complete. Coverage: %0.2f%%", cg_inst.get_inst_coverage());
         $finish;
