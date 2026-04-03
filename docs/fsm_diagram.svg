@@ -35,7 +35,7 @@
     <path d="M 160 105 L 10 105 L 10 305 L 170 305" fill="none" stroke="#333" stroke-width="1.5"
         marker-end="url(#arrow)" />
     <!-- Text moved closer to the vertical line -->
-    <text x="15" y="200" font-family="Arial, sans-serif" font-size="11" fill="#666" transform="rotate(-90 15 200)">Hủy</text>
+    <text x="25" y="200" font-family="Arial, sans-serif" font-size="11" fill="#666" transform="rotate(-90 25 200)">Hủy</text>
 
     <!-- SELECT State (Below Accumulate) -->
     <rect x="170" y="150" width="100" height="40" rx="8" fill="#FFD700" stroke="#333" stroke-width="2" />
@@ -44,12 +44,12 @@
     <!-- Arrow SELECT -> DISPENSE (Left Down) -->
     <line x1="190" y1="190" x2="120" y2="220" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
     <!-- Adjusted text position -->
-    <text x="105" y="200" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#666">đủ tiền</text>
+    <text x="145" y="215" text-anchor="end" font-family="Arial, sans-serif" font-size="10" fill="#666">đủ tiền</text>
 
     <!-- Arrow SELECT -> ERROR (Right Down) -->
     <line x1="250" y1="190" x2="320" y2="220" stroke="#333" stroke-width="2" marker-end="url(#arrow)" />
     <!-- Adjusted text position -->
-    <text x="335" y="200" text-anchor="start" font-family="Arial, sans-serif" font-size="10" fill="#666">thiếu tiền</text>
+    <text x="295" y="215" text-anchor="start" font-family="Arial, sans-serif" font-size="10" fill="#666">thiếu tiền</text>
 
     <!-- DISPENSE State (Left Bottom) -->
     <rect x="60" y="225" width="100" height="40" rx="8" fill="#98FB98" stroke="#333" stroke-width="2" />
