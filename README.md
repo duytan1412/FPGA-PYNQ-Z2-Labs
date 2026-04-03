@@ -21,7 +21,7 @@ Demonstrates skills in **Digital Design**, **Timing Closure**, **Tcl Automation*
 - **Feature:** [🐛 How I Debug Timing Violations](./HOW_I_DEBUG_TIMING.md) (Methodology Guide)
 
 ### Simulation Waveform (Vivado)
-![Vending Machine Waveform](./04_Vending_Machine/docs/waveform_simulation.png)
+![Vending Machine Waveform (Fixed - Safety Prioritized)](./04_Vending_Machine/docs/waveform_vending_fixed.png)
 *Testbench running all 8 scenarios: coin insertion, item selection, balance tracking, dispense, and change calculation*
 
 ### State Diagram (Moore FSM)
