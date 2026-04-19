@@ -7,14 +7,14 @@ This repository contains FPGA design projects for the Xilinx PYNQ-Z2 board. It f
 
 ---
 
-## 💎 Design Highlights (Verification Evidence)
+## Design Highlights (Verification Evidence)
 
 > [!IMPORTANT]
 > **Timing Closure Reached**: 
 > - **WNS (Worst Negative Slack)**: **+3.889 ns** (Estimated FMAX ~150MHz+)
 > - **Evidence**: [View Timing Report Screenshot](./docs/timing_report.png) | [Tcl Automation Script](./tools/report_timing.tcl)
 
-## 🏗️ System Architecture
+## System Architecture
 
 This project focuses on the hardware implementation of complex finite-state machine (FSM) controllers on the PYNQ-Z2 board:
 - **Core Controller**: 6-state Moore Machine handling vending machine state transitions.
@@ -23,7 +23,7 @@ This project focuses on the hardware implementation of complex finite-state mach
 
 ---
 
-## 🎰 Vending Machine FSM
+## Vending Machine FSM
 A 6-state Moore machine controller with a self-checking testbench.
 
 ### State Diagram (Mermaid)
@@ -127,10 +127,10 @@ Failed: 0
 
 | Metric | Value | Status |
 |--------|-------|--------|
-| WNS (Setup) | +3.889 ns | ✅ PASSED |
-| WHS (Hold) | +0.152 ns | ✅ PASSED |
-| WPWS (Pulse Width) | +3.500 ns | ✅ PASSED |
-| Failing Endpoints | 0 | ✅ PERFECT |
+| WNS (Setup) | +3.889 ns | PASSED |
+| WHS (Hold) | +0.152 ns | PASSED |
+| WPWS (Pulse Width) | +3.500 ns | PASSED |
+| Failing Endpoints | 0 | PERFECT |
 
 > **"All user specified timing constraints are met."**
 
@@ -164,7 +164,7 @@ FPGA-PYNQ-Z2-Labs/
 │   ├── counter_4bit.v     # 4-bit up/down counter
 │   └── seg7_led.v         # Hex to 7-segment decoder
 │
-├── 04_Vending_Machine/     ★ HIGHLIGHT
+├── 04_Vending_Machine/     [HIGHLIGHTED]
 │   ├── vending_machine.v  # 6-state Moore FSM
 │   ├── tb_vending_machine.v # Self-checking testbench
 │   └── README.md          # State diagram & test scenarios
@@ -186,7 +186,7 @@ FPGA-PYNQ-Z2-Labs/
 4. Check Console for PASS/FAIL results
 ```
 
-### 🎞️ Simulation Demo
+### Simulation Demo
 [**Watch the Walkthrough Video →**](docs/FPGA_Simulation_walkthrough.mp4)
 
 *Tested in Vivado simulator. The video demonstrates state transitions and automated PASS/FAIL logging.*
@@ -204,7 +204,7 @@ python tools/collect_timing.py reports/timing_summary.rpt
 
 ---
 
-## 👤 Author
+## Author
 
 **Bì Duy Tân** (Junior Verification Engineer)  
 FPT Jetking Academy - Chip Design Technology  
@@ -213,6 +213,6 @@ FPT Jetking Academy - Chip Design Technology
 
 ---
 
-## 📄 License
+## License
 
 MIT License - Free to use for educational purposes.
