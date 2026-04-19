@@ -7,8 +7,24 @@ This repository contains FPGA design projects for the Xilinx PYNQ-Z2 board. It f
 
 ---
 
-## 🎰 Vending Machine FSM (Highlight)
-A 6-state Moore machine controller with a self-checking testbench, demonstrating robust FSM design and Timing Closure techniques.
+## 💎 Design Highlights (Bằng chứng thiết kế)
+
+> [!IMPORTANT]
+> **Timing Closure Reached**: 
+> - **WNS (Worst Negative Slack)**: **+3.889 ns** (FMAX ~150MHz+)
+> - **Evidence**: [View Timing Report Screenshot](./docs/timing_report.png) | [Tcl Automation Script](./tools/report_timing.tcl)
+
+## 🏗️ Kiến trúc hệ thống (System Architecture)
+
+Dự án tập trung vào việc hiện thực hóa các bộ điều khiển logic phức tạp trên nền tảng FPGA PYNQ-Z2:
+- **Core Controller**: Moore FSM 6 trạng thái xử lý logic Vending Machine.
+- **Timing Closure**: Sử dụng Vivado STA để tối ưu hóa đường truyền critical path.
+- **Automation**: Luồng Tcl scripts tự động xuất báo cáo Utilization & Timing.
+
+---
+
+## 🎰 Vending Machine FSM
+A 6-state Moore machine controller with a self-checking testbench.
 
 ### State Diagram (Mermaid)
 ```mermaid
