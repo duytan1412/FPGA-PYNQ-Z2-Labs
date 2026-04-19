@@ -9,9 +9,9 @@ module led_blink(
     wire clk_1Hz;
 
     clk_divider #(.DIVISOR(50_000_000)) clk_div (
-        .clk_100MHz(clk_100MHz),
-        .reset(reset),
-        .clk_out(clk_1Hz)
+       .clk_100MHz(clk_100MHz),
+       .reset(reset),
+       .clk_out(clk_1Hz)
     );
 
     reg [3:0] led_pattern;

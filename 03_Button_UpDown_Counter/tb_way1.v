@@ -15,11 +15,11 @@ module tb_way1;
     
     // DUT - Device Under Test
     counter_4bit DUT (
-        .clk(clk),
-        .rst_p(rst_p),
-        .btn_up(btn_up),
-        .btn_down(btn_down),
-        .count(count)
+       .clk(clk),
+       .rst_p(rst_p),
+       .btn_up(btn_up),
+       .btn_down(btn_down),
+       .count(count)
     );
     
     // Clock 10ns -> 100MHz

@@ -1,5 +1,5 @@
 # FPGA-PYNQ-Z2-Labs
-This repository contains FPGA design projects for the **Xilinx PYNQ-Z2** board. It focuses on RTL development, timing closure (STA) with Vivado, and automation scripting.
+This repository contains FPGA design projects for the Xilinx PYNQ-Z2 board. It focuses on RTL development, timing closure (STA) with Vivado, and automation scripting.
 
 ![Vivado](https://img.shields.io/badge/Vivado-2020.2-green)
 ![Board](https://img.shields.io/badge/Board-PYNQ--Z2-blue)
@@ -8,7 +8,7 @@ This repository contains FPGA design projects for the **Xilinx PYNQ-Z2** board. 
 ---
 
 ## 🎰 Vending Machine FSM (Highlight)
-A 6-state Moore machine controller with a self-checking testbench, demonstrating robust FSM design and **Timing Closure** techniques.
+A 6-state Moore machine controller with a self-checking testbench, demonstrating robust FSM design and Timing Closure techniques.
 
 ### State Diagram (Mermaid)
 ```mermaid
@@ -23,9 +23,9 @@ stateDiagram-v2
 ```
 
 ### Key Engineering Highlights
-*   **Static Timing Analysis (STA)**: Achieved a positive slack of **+3.889 ns** through path optimization in Vivado.
-*   **Timing Debugging**: Detailed walkthrough on fixing setup/hold violations in [HOW_I_DEBUG_TIMING.md](./HOW_I_DEBUG_TIMING.md).
-*   **Self-Checking Testbench**: Automated verification with status reporting for 8 distinct scenarios.
+*   Static Timing Analysis (STA): Achieved a positive slack of +3.889 ns through path optimization in Vivado.
+*   Timing Debugging: Detailed walkthrough on fixing setup/hold violations in [HOW_I_DEBUG_TIMING.md](./HOW_I_DEBUG_TIMING.md).
+*   Self-Checking Testbench: Automated verification with status reporting for 8 distinct scenarios.
 
 [Go to project files](./04_Vending_Machine)
 
@@ -44,7 +44,7 @@ stateDiagram-v2
 
 ## Automation Scripts
 
-This repository includes custom scripts to automate the **Timing Closure** and **Reporting** flow, commonly used in EDA/FPGA Applications Engineering.
+This repository includes custom scripts to automate the Timing Closure and Reporting flow, commonly used in EDA/FPGA Applications Engineering.
 
 ### 1. Tcl Script: Report Timing & Utilization
 Located in `tools/report_timing.tcl`. Run this in Vivado Tcl Console or Batch mode to generate standard reports.
@@ -92,7 +92,7 @@ TNS (Total Negative Slack): 0.0 ns
 Total Tests: 8
 Passed: 8
 Failed: 0
-*** ALL TESTS PASSED! ***
+--- ALL TESTS PASSED! ---
 ```
 
 ---
@@ -111,10 +111,10 @@ Failed: 0
 
 | Metric | Value | Status |
 |--------|-------|--------|
-| **WNS (Setup)** | +3.889 ns | ✅ PASSED |
-| **WHS (Hold)** | +0.152 ns | ✅ PASSED |
-| **WPWS (Pulse Width)** | +3.500 ns | ✅ PASSED |
-| **Failing Endpoints** | 0 | ✅ PERFECT |
+| WNS (Setup) | +3.889 ns | ✅ PASSED |
+| WHS (Hold) | +0.152 ns | ✅ PASSED |
+| WPWS (Pulse Width) | +3.500 ns | ✅ PASSED |
+| Failing Endpoints | 0 | ✅ PERFECT |
 
 > **"All user specified timing constraints are met."**
 

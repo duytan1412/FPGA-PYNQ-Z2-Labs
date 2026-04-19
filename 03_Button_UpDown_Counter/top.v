@@ -24,34 +24,34 @@ module top (
     
     // IC1: Debounce cho nút UP
     btn_debounce IC1 (
-        .clk(clk),
-        .rst_p(rst_p),
-        .btn_in(btn_up),
-        .btn_out(btn_up_t)
+       .clk(clk),
+       .rst_p(rst_p),
+       .btn_in(btn_up),
+       .btn_out(btn_up_t)
     );
     
     // IC2: Debounce cho nút DOWN
     btn_debounce IC2 (
-        .clk(clk),
-        .rst_p(rst_p),
-        .btn_in(btn_down),
-        .btn_out(btn_down_t)
+       .clk(clk),
+       .rst_p(rst_p),
+       .btn_in(btn_down),
+       .btn_out(btn_down_t)
     );
     
     // IC3: Counter 4-bit với pulse detection
     counter_4bit IC3 (
-        .clk(clk),
-        .rst_p(rst_p),
-        .btn_up(btn_up_t),
-        .btn_down(btn_down_t),
-        .count(count_t)
+       .clk(clk),
+       .rst_p(rst_p),
+       .btn_up(btn_up_t),
+       .btn_down(btn_down_t),
+       .count(count_t)
     );
     
     // IC4: 7-segment LED display
     seg7_led IC4 (
-        .count(count_t),
-        .digit(digit),
-        .ssegt(ssegt)
+       .count(count_t),
+       .digit(digit),
+       .ssegt(ssegt)
     );
     
 endmodule

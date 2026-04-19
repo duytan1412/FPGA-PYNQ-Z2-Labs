@@ -17,26 +17,26 @@ module tb_way2;
     
     // Debounce tạo xung
     debounce DB_UP (
-        .clk(clk),
-        .rst_p(rst_p),
-        .btn_in(btn_up_raw),
-        .btn_out(btn_up_pulse)
+       .clk(clk),
+       .rst_p(rst_p),
+       .btn_in(btn_up_raw),
+       .btn_out(btn_up_pulse)
     );
     
     debounce DB_DOWN (
-        .clk(clk),
-        .rst_p(rst_p),
-        .btn_in(btn_down_raw),
-        .btn_out(btn_down_pulse)
+       .clk(clk),
+       .rst_p(rst_p),
+       .btn_in(btn_down_raw),
+       .btn_out(btn_down_pulse)
     );
     
     // Counter - nhận pulse từ debounce
     counter_4bit DUT (
-        .clk(clk),
-        .rst_p(rst_p),
-        .btn_up(btn_up_pulse),
-        .btn_down(btn_down_pulse),
-        .count(count)
+       .clk(clk),
+       .rst_p(rst_p),
+       .btn_up(btn_up_pulse),
+       .btn_down(btn_down_pulse),
+       .count(count)
     );
     
     // Clock

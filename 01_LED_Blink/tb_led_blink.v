@@ -7,9 +7,9 @@ module tb_led_blink;
     wire [3:0] led;
 
     led_blink #() uut (
-        .clk_100MHz(clk_100MHz),
-        .reset(reset),
-        .led(led)
+       .clk_100MHz(clk_100MHz),
+       .reset(reset),
+       .led(led)
     );
 
     defparam uut.clk_div.DIVISOR = 5;

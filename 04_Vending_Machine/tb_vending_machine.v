@@ -23,16 +23,16 @@ module tb_vending_machine;
 
     // instance
     vending_machine uut (
-        .clk(clk),
-        .reset(reset),
-        .coin(coin),
-        .item_sel(item_sel),
-        .cancel(cancel),
-        .balance(balance),
-        .dispense(dispense),
-        .change(change),
-        .error(error),
-        .state_out(state_out)
+       .clk(clk),
+       .reset(reset),
+       .coin(coin),
+       .item_sel(item_sel),
+       .cancel(cancel),
+       .balance(balance),
+       .dispense(dispense),
+       .change(change),
+       .error(error),
+       .state_out(state_out)
     );
 
     // 100MHz clock
@@ -192,9 +192,9 @@ module tb_vending_machine;
         $display("---------------\n");
 
         if (fail_count == 0)
-            $display("*** ALL TESTS PASSED! ***\n");
+            $display("--- ALL TESTS PASSED! ---\n");
         else
-            $display("*** SOME TESTS FAILED! ***\n");
+            $display("--- SOME TESTS FAILED! ---\n");
 
         $finish;
     end
