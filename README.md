@@ -170,11 +170,12 @@ FPGA-PYNQ-Z2-Labs/
 4. Check Console for PASS/FAIL results
 ```
 
-### Simulation demo
-[Watch Video](./docs/FPGA_Simulation_walkthrough.mp4)
+### 🎞️ Simulation Demo
+[**Watch the Walkthrough Video →**](docs/FPGA_Simulation_walkthrough.mp4)
 
-Tested in Vivado simulator. The video shows state transitions and pass/fail logging.
-Timing reports confirmed positive slack for the implementation.
+*Tested in Vivado simulator. The video demonstrates state transitions and automated PASS/FAIL logging.*
+
+---
 
 ### Run Timing Automation
 ```bash
