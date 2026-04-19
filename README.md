@@ -1,6 +1,5 @@
 # FPGA-PYNQ-Z2-Labs
-
-My FPGA lab projects for the **Xilinx PYNQ-Z2** board. These covers Verilog design, timing analysis with Vivado, and some UVM/SystemVerilog verification.
+This repository contains FPGA design projects for the **Xilinx PYNQ-Z2** board. It focuses on RTL development, timing closure (STA) with Vivado, and automation scripting.
 
 ![Vivado](https://img.shields.io/badge/Vivado-2020.2-green)
 ![Board](https://img.shields.io/badge/Board-PYNQ--Z2-blue)
@@ -40,8 +39,6 @@ stateDiagram-v2
 | 02 | [7-Segment Counter](./02_7Segment_Counter) | Multiplexing FSM |
 | 03 | [Button Up/Down](./03_Button_UpDown_Counter) | Debouncing |
 | 04 | [Vending Machine](./04_Vending_Machine) | Moore FSM & ALU |
-| 05 | [SystemVerilog](./verification) | Assertions & Groups |
-| 06 | [UVM Basic](./uvm_example) | Scoreboard & Coverage |
 
 ---
 
@@ -57,7 +54,8 @@ vivado -mode batch -source tools/report_timing.tcl -tclargs MyProject impl_1
 ```
 
 ### 2. Python Script: Parse Timing Report
-Located in `tools/collect_timing.py`. identifying WNS/TNS metrics from generated text reports.
+Located in `tools/collect_timing.py`. Identifying WNS/TNS metrics from generated text reports.
+> *Note: This Python parser approach is highly scalable for automating UVM regression log analysis.*
 
 ```bash
 python tools/collect_timing.py reports/timing_summary.rpt
@@ -132,15 +130,6 @@ FPGA-PYNQ-Z2-Labs/
 │   ├── report_timing.tcl   # Vivado Tcl script
 │   └── collect_timing.py   # Python parser
 │
-├── verification/           # [NEW] SystemVerilog Verification
-│   └── top_tb.sv           # Testbench with Assertions & Coverage
-│
-├── uvm_example/            # [NEW] Mini-UVM Verification Environment
-│   ├── rtl/counter.sv      # DUT: 4-bit counter
-│   ├── tb/                 # UVM components (Driver, Monitor, Scoreboard)
-│   ├── top/tb_top.sv       # Top-level testbench
-│   └── run_sim.sh          # Multi-tool run script (VCS/Questa/XSIM)
-│
 ├── 01_LED_Blink/
 │   ├── clk_divider.v      # Clock divider module
 │   ├── led_blink.v        # Top module (shift register pattern)
@@ -200,9 +189,8 @@ python tools/collect_timing.py reports/timing_summary.rpt
 
 ## 👤 Author
 
-**Bì Duy Tân**  
+**Bì Duy Tân** (Junior Verification Engineer)  
 FPT Jetking Academy - Chip Design Technology  
-Semester 2 (2025-2027)
 📧 duytan2903@gmail.com  
 🔗 [LinkedIn](https://linkedin.com/in/bi-duy-tan) | [GitHub](https://github.com/duytan1412)
 
