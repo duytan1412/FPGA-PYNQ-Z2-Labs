@@ -8,19 +8,25 @@ My FPGA lab projects for the **Xilinx PYNQ-Z2** board. These covers Verilog desi
 
 ---
 
-## Vending Machine FSM (Highlight)
+## 🎰 Vending Machine FSM (Highlight)
+A 6-state Moore machine controller with a self-checking testbench, demonstrating robust FSM design and **Timing Closure** techniques.
 
-A 6-state Moore machine controller with a self-checking testbench.
+### State Diagram (Mermaid)
+```mermaid
+stateDiagram-v2
+    [*] --> IDLE
+    IDLE --> ACCUMULATE : Coin Detected
+    ACCUMULATE --> SELECT : Ready / Sufficient Funds
+    SELECT --> DISPENSE : Item Chosen
+    DISPENSE --> CHANGE : Transaction Complete
+    CHANGE --> IDLE : Refund / Reset
+    SELECT --> IDLE : Cancel / Timeout
+```
 
-**Main logic:**
-- 6 states: `IDLE, ACCUMULATE, SELECT, DISPENSE, CHANGE, ERROR`
-- Testbench covers 8 scenarios (coin, cancel, buy, etc)
-- Timing fixed [here](./HOW_I_DEBUG_TIMING.md)
-
-### Waveform & State Diagram
-![Vending Machine Waveform](./04_Vending_Machine/docs/waveform_vending_fixed.png)
-
-![Vending Machine State Diagram](./docs/fsm_diagram.svg)
+### Key Engineering Highlights
+*   **Static Timing Analysis (STA)**: Achieved a positive slack of **+3.889 ns** through path optimization in Vivado.
+*   **Timing Debugging**: Detailed walkthrough on fixing setup/hold violations in [HOW_I_DEBUG_TIMING.md](./HOW_I_DEBUG_TIMING.md).
+*   **Self-Checking Testbench**: Automated verification with status reporting for 8 distinct scenarios.
 
 [Go to project files](./04_Vending_Machine)
 
