@@ -23,11 +23,15 @@ def parse_timing_report(report_path):
         # Taking a simpler approach driven by keywords often found in the text report
         wns_match = re.search(r'Worst Negative Slack \(WNS\):\s+([-\d.]+)\s+ns', content)
         if not wns_match:
-             # Try alternative format 
-             wns_match = re.search(r'WNS\(ns\)\s+TNS\(ns\)\s+.*\n\s+([-\d.]+)\s+([-\d.]+)', content)
-             if wns_match:
-                 wns = float(wns_match.group(1))
-                 tns = float(wns_match.group(2))
+            # Vivado table format has a header, separator row, then numeric data.
+            table_match = re.search(
+                r'WNS\(ns\)\s+TNS\(ns\).*?\n\s*-+\s+-+.*?\n\s+([-+]?\d+(?:\.\d+)?)\s+([-+]?\d+(?:\.\d+)?)',
+                content,
+                re.DOTALL,
+            )
+            if table_match:
+                wns = float(table_match.group(1))
+                tns = float(table_match.group(2))
         else:
             wns = float(wns_match.group(1))
             tns_match = re.search(r'Total Negative Slack \(TNS\):\s+([-\d.]+)\s+ns', content)

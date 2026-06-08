@@ -10,7 +10,7 @@ This repository contains FPGA design projects for the Xilinx PYNQ-Z2 board. It f
 ## Design Highlights (Verification Evidence)
 
 > [!IMPORTANT]
-> **Timing Closure Reached**: 
+> **Timing Closure Reached**:
 > - **WNS (Worst Negative Slack)**: **+3.889 ns** (Estimated FMAX ~150MHz+)
 > - **Evidence**: [View Timing Report Screenshot](./docs/timing_report.png) | [Tcl Automation Script](./tools/report_timing.tcl)
 
@@ -46,6 +46,8 @@ stateDiagram-v2
 [Go to project files](./04_Vending_Machine)
 
 ---
+
+See [PORTFOLIO.md](./PORTFOLIO.md) for the scholarship-focused evidence map and IC-design relevance summary.
 
 ## Projects List
 
@@ -206,9 +208,9 @@ python tools/collect_timing.py reports/timing_summary.rpt
 
 ## Author
 
-**Bì Duy Tân** (Junior Verification Engineer)  
-FPT Jetking Academy - Chip Design Technology  
-📧 duytan2903@gmail.com  
+**Bì Duy Tân** (Junior Verification Engineer)
+FPT Jetking Academy - Chip Design Technology
+📧 duytan2903@gmail.com
 🔗 [LinkedIn](https://linkedin.com/in/bi-duy-tan) | [GitHub](https://github.com/duytan1412)
 
 ---
