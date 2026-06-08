@@ -21,7 +21,7 @@ This repository demonstrates RTL design fundamentals, self-checking simulation, 
 | Timing-debug notes | `HOW_I_DEBUG_TIMING.md` |
 
 ## Scholarship Positioning
-For Synopsys IC Design Scholarship review, this project should be presented as foundational RTL and timing-closure evidence. It is not the strongest verification project in the portfolio, but it complements the AMBA APB and AXI4-Lite UVM repositories by showing that the applicant understands synthesizable RTL, constraints, timing reports, and waveform-driven debugging.
+For Synopsys IC Design Scholarship review, this project should be presented as foundational RTL and timing-closure evidence. It complements the AMBA APB and AXI4-Lite UVM repositories by showing that the applicant understands synthesizable RTL, constraints, timing reports, and waveform-driven debugging.
 
 ## Current Limitation
 Hardware bring-up is documented as FPGA-targeted, but final scholarship claims should emphasize simulation, Vivado reports, and timing evidence unless physical PYNQ-Z2 board measurements are available.

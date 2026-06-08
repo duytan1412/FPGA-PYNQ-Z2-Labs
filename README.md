@@ -16,7 +16,7 @@ This repository contains FPGA design projects for the Xilinx PYNQ-Z2 board. It f
 
 ## System Architecture
 
-This project focuses on the hardware implementation of complex finite-state machine (FSM) controllers on the PYNQ-Z2 board:
+This project focuses on the hardware implementation of finite-state machine (FSM) controllers on the PYNQ-Z2 board:
 - **Core Controller**: 6-state Moore Machine handling vending machine state transitions.
 - **Timing Optimization**: Utilized Vivado STA (Static Timing Analysis) to optimize critical paths and ensure closure.
 - **Automation Pipeline**: Tcl-based flow for automated Utilization and Timing report generation.
@@ -132,7 +132,7 @@ Failed: 0
 | WNS (Setup) | +3.889 ns | PASSED |
 | WHS (Hold) | +0.152 ns | PASSED |
 | WPWS (Pulse Width) | +3.500 ns | PASSED |
-| Failing Endpoints | 0 | PERFECT |
+| Failing Endpoints | 0 | PASSED |
 
 > **"All user specified timing constraints are met."**
 
