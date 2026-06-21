@@ -17,6 +17,7 @@ Minimal PYNQ-Z2 RTL lab for clock division and LED output control.
 - Counter-based clock division.
 - Basic self-checking simulation structure.
 - PYNQ-Z2 pin constraint usage.
+- 125 MHz board clock constraint (create_clock -period 8.00) on pin H16.
 
 ## Run
 

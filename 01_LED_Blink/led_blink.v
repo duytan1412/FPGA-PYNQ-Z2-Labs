@@ -1,15 +1,15 @@
 `timescale 1ns / 1ps
 
 module led_blink(
-    input  clk_100MHz,
+    input  clk_125MHz,
     input  reset,
     output [3:0] led
 );
 
     wire clk_1Hz;
 
-    clk_divider #(.DIVISOR(50_000_000)) clk_div (
-       .clk_100MHz(clk_100MHz),
+    clk_divider #(.DIVISOR(62_500_000)) clk_div (
+       .clk_125MHz(clk_125MHz),
        .reset(reset),
        .clk_out(clk_1Hz)
     );

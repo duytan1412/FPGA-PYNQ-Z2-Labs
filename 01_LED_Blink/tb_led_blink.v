@@ -2,12 +2,12 @@
 
 module tb_led_blink;
 
-    reg clk_100MHz;
+    reg clk_125MHz;
     reg reset;
     wire [3:0] led;
 
     led_blink #() uut (
-       .clk_100MHz(clk_100MHz),
+       .clk_125MHz(clk_125MHz),
        .reset(reset),
        .led(led)
     );
@@ -15,8 +15,8 @@ module tb_led_blink;
     defparam uut.clk_div.DIVISOR = 5;
 
     initial begin
-        clk_100MHz = 0;
-        forever #5 clk_100MHz = ~clk_100MHz;
+        clk_125MHz = 0;
+        forever #4 clk_125MHz = ~clk_125MHz;
     end
 
     initial begin

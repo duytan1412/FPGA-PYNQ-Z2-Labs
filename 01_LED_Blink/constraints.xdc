@@ -1,6 +1,6 @@
 ## Clock
-set_property -dict { PACKAGE_PIN H16   IOSTANDARD LVCMOS33 } [get_ports { clk_100MHz }];
-create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports { clk_100MHz }];
+set_property -dict { PACKAGE_PIN H16   IOSTANDARD LVCMOS33 } [get_ports { clk_125MHz }];
+create_clock -add -name sys_clk_pin -period 8.00 -waveform {0 4} [get_ports { clk_125MHz }];
 
 ## Reset (BTN0)
 set_property -dict { PACKAGE_PIN D19   IOSTANDARD LVCMOS33 } [get_ports { reset }];
