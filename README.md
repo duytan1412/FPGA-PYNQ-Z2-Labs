@@ -7,6 +7,21 @@ This repository contains FPGA design projects for the Xilinx PYNQ-Z2 board. It f
 
 ---
 
+## Recruiter Quick View
+
+| Evidence | Link |
+|---|---|
+| Vending FSM RTL | [`04_Vending_Machine/vending_machine.v`](./04_Vending_Machine/vending_machine.v) |
+| Self-checking testbench | [`04_Vending_Machine/tb_vending_machine.v`](./04_Vending_Machine/tb_vending_machine.v) |
+| Waveform evidence | [`04_Vending_Machine/docs/waveform_vending_fixed.png`](./04_Vending_Machine/docs/waveform_vending_fixed.png) |
+| Timing report screenshot | [`docs/timing_report.png`](./docs/timing_report.png) |
+| Timing automation Tcl | [`tools/report_timing.tcl`](./tools/report_timing.tcl) |
+| Simulation runner | [`scripts/run_sim.ps1`](./scripts/run_sim.ps1) |
+| CI workflow | [`.github/workflows/ci.yml`](./.github/workflows/ci.yml) |
+
+> The `verification/` directory is reserved for future shared test assets. Current executable verification evidence lives in each lab folder and the CI workflow.
+---
+
 ## Design Highlights (Verification Evidence)
 
 > [!IMPORTANT]
@@ -217,4 +232,5 @@ FPT Jetking Academy - Chip Design Technology
 
 ## License
 
-MIT License - Free to use for educational purposes.
+MIT License - see [LICENSE](./LICENSE).
+

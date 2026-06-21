@@ -13,7 +13,7 @@ Verified everything in Vivado with 8+ test scenarios covering normal purchase, i
 - FSM: Moore Machine (6 states)
 - Coins: 5, 10, 20
 - Items: A(15), B(25), C(30)
-- Safeguards: Max balance 99, 100% coverage in TB
+- Safeguards: Max balance 99, verified with 8 directed/self-checking scenarios
 
 ---
 
@@ -21,7 +21,7 @@ Verified everything in Vivado with 8+ test scenarios covering normal purchase, i
 
 ### Waveform (Vivado Behavioral Simulation)
 
-![Vending Machine Waveform](./docs/waveform_simulation.png)
+![Vending Machine Waveform](./docs/waveform_vending_fixed.png)
 
 *Complete testbench execution showing:*
 - **coin[1:0]**: Coin insertion (5/10/20 units)
@@ -76,8 +76,8 @@ Fail: 0
 |------|-------------|
 | `vending_machine.v` | Main FSM controller module |
 | `tb_vending_machine.v` | Self-checking testbench |
-| `constraints.xdc` | PYNQ-Z2 pin mapping |
-| `docs/waveform_simulation.png` | Simulation evidence |
+| `constraints_vending_machine.xdc` | PYNQ-Z2 pin mapping |
+| `docs/waveform_vending_fixed.png` | Simulation evidence |
 
 ---
 
@@ -97,3 +97,4 @@ Fail: 0
 
 **Bì Duy Tân** - FPT Jetking Academy  
 Chip Design Technology - Semester 2 (2025-2027)
+
