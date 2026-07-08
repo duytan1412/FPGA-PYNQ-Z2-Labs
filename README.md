@@ -17,6 +17,9 @@ This repository contains FPGA design projects for the Xilinx PYNQ-Z2 board. It f
 | Timing report screenshot | [`docs/timing_report.png`](./docs/timing_report.png) |
 | Timing automation Tcl | [`tools/report_timing.tcl`](./tools/report_timing.tcl) |
 | Simulation runner | [`scripts/run_sim.ps1`](./scripts/run_sim.ps1) |
+| Simulation vs timing note | [`docs/simulation_vs_timing.md`](./docs/simulation_vs_timing.md) |
+| CDC mini-lab plan | [`docs/cdc_mini_lab_plan.md`](./docs/cdc_mini_lab_plan.md) |
+| Evidence policy | [`docs/evidence_policy.md`](./docs/evidence_policy.md) |
 | CI workflow | [`.github/workflows/ci.yml`](./.github/workflows/ci.yml) |
 
 > The `verification/` directory is reserved for future shared test assets. Current executable verification evidence lives in each lab folder and the CI workflow.
