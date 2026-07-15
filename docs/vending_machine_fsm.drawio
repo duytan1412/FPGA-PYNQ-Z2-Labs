@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-07-15T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="603c6d25da14" name="Vending Machine FSM">
+    <mxGraphModel dx="1120" dy="620" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1120" pageHeight="620" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="idle" value="IDLE" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#1f2937;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="50" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="acc" value="ACCUMULATE" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1f2937;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="200" width="180" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="sel" value="SELECT" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#1f2937;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="200" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="disp" value="DISPENSE" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;fontColor=#1f2937;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="730" y="200" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="change" value="CHANGE" style="rounded=1;whiteSpace=wrap;html=1;shadow=0;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;fontColor=#1f2937;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="730" y="390" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#375a7f;" edge="1" parent="1" source="idle" target="acc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#375a7f;" edge="1" parent="1" source="acc" target="sel">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#375a7f;" edge="1" parent="1" source="sel" target="disp">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#375a7f;" edge="1" parent="1" source="disp" target="change">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#375a7f;" edge="1" parent="1" source="change" target="idle">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#375a7f;" edge="1" parent="1" source="sel" target="idle">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

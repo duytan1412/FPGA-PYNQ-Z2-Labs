@@ -44,17 +44,9 @@ This project focuses on the hardware implementation of finite-state machine (FSM
 ## Vending Machine FSM
 A 6-state Moore machine controller with a self-checking testbench.
 
-### State Diagram (Mermaid)
-```mermaid
-stateDiagram-v2
-    [*] --> IDLE
-    IDLE --> ACCUMULATE : Coin Detected
-    ACCUMULATE --> SELECT : Ready / Sufficient Funds
-    SELECT --> DISPENSE : Item Chosen
-    DISPENSE --> CHANGE : Transaction Complete
-    CHANGE --> IDLE : Refund / Reset
-    SELECT --> IDLE : Cancel / Timeout
-```
+![Vending machine FSM](docs/vending_machine_fsm.png)
+
+Editable source: [`docs/vending_machine_fsm.drawio`](docs/vending_machine_fsm.drawio).
 
 ### Key Engineering Highlights
 *   Static Timing Analysis (STA): Achieved a positive slack of +3.889 ns through path optimization in Vivado.

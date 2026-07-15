@@ -40,8 +40,8 @@ jobs:
           echo "❌ SIMULATION FAILED"
           exit 1
         else
-          echo "⚠️ No explicit PASS/FAIL found, check output above"
-          exit 0
+          echo "❌ No explicit PASS/FAIL marker found"
+          exit 1
         fi
 
     - name: Upload Simulation Log
